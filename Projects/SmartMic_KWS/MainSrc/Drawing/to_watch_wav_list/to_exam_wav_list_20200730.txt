@@ -1,0 +1,7 @@
+bad:
+開關門_mod.wav acc value is:0.7535545023696683
+手拍窗戶玻璃_mod.wav acc value is:0.6576576576576577
+
+good：
+板擦拍敲桌子_mod.wav acc value is:0.9808917197452229
+椅子聲_mod.wav acc value is:0.9975247524752475
