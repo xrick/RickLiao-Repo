@@ -1,8 +1,3 @@
 version https://git-lfs.github.com/spec/v1
-<<<<<<< HEAD:Researches/Papers/DL_Architectures_Models_Design/XNOR_Net/codes/Sketch-A-Net_using_XNOR-Net_in_TensorFlow/Sketch-A-XNORNet-master.zip
-oid sha256:00ccc6b9f7d5b5f34fded72f5dd33afb0ed6717e8c9ab258c56bb319a0cf176a
-size 2673749
-=======
-oid sha256:12104edd71077d2c9bc92baf91ffbbc67d8418c5d790618d03febc40375ccdf0
-size 132145034
->>>>>>> parent of 864cbdb (commit some changes):Researches/Papers/深度學習架構與模型設計論文/XNOR_Net/codes/Sketch-A-Net_using_XNOR-Net_in_TensorFlow/Sketch-A-XNORNet-master.zip
+oid sha256:2dbc6630ad284935f7b85c457a84e83407df33e425df089dd4f8e3f5c50e1f76
+size 569
