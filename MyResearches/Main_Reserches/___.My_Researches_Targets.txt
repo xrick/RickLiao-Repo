@@ -1,0 +1,6 @@
+Researches Targets:
+1. FSL for Edge-Device
+2. Adaptive Algorithms for DL Model to adapt to the used environments
+----------------------------------------------------------------------
+Fisrt of all.
+Understanding the different DL Models and Learning approaches relationships.
