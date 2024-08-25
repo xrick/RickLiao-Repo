@@ -1,0 +1,21 @@
+LLM Related:
+1. Basic LLM Interview Questions
+	What is the Transformer architecture, and how is it used in LLMs?
+
+	The Transformer architecture is a deep learning model introduced by Vaswani et al. in 2017, designed to handle sequential data with improved efficiency and performance than previous models like recurrent neural networks (RNNs) and long short-term memory (LSTMs).
+
+	It relies on self-attention mechanisms to process input data in parallel, making it highly scalable and capable of capturing long-range dependencies.
+
+	In LLMs, the Transformer architecture forms the backbone, enabling models to process large amounts of text data efficiently and generate contextually relevant and coherent text outputs.
+
+2. What are some common challenges associated with using LLMs?
+	What are embedding layers, and why are they important in LLMs?
+	Embedding layers are a significant component in LLMs used to convert categorical data, such as words, into dense vector representations. These embeddings capture semantic relationships between words by representing them in a continuous vector space where similar words exhibit stronger proximity. The importance of embedding layers in LLMs includes:
+
+	Dimensionality reduction: They reduce the dimensionality of the input data, making it more manageable for the model to process.
+	Semantic understanding: Embeddings capture nuanced semantic meanings and relationships between words, enhancing the model's ability to understand and generate human-like text.
+	Transfer learning: Pre-trained embeddings can be used across different models and tasks, providing a solid foundation of language understanding that can be fine-tuned for specific applications.
+
+	3. How do LLMs handle out-of-vocabulary (OOV) words or tokens?
+	
+
