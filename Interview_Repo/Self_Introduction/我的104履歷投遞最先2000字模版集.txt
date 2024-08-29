@@ -1,0 +1,61 @@
+您好：
+近日得知貴公司有在召募「資料分析與AI演算法工程師」，十分希望能得到這份工作的面試機會，以下是我個人的簡介：
+1. 個人主要研發深度學習在語音及環境音偵測及分類的研究與應用，有多年實作經驗及研究投入
+2. 程式語言：熟悉Python, C, C++, Javascript, GoLang
+3.深度學習框架：熟悉Pytorch, Tensorflow, TFLM, JAX。
+4. 熟悉不同深度學習的架構、原由及應用場合。
+5. 熟悉模型剪枝與int8 post-quantization 及quantization-aware training，並有實際開發經驗。
+6. 結合剪枝與量化技術，得到更大的壓縮比，並維持一定的模型效能。
+目前在現階段服務公司開發邊緣裝置：智慧型插座，研發偵測火災與煙霧警報聲，模型經過兩階段剪枝與Int8量化，從18.9MB壓縮到70KB，且原模型為CNN-based，高達43層。剪枝後利用自行研究研究技術提升模型效能，量化後再做一次QAT，使壓縮後模型準確率仍維持96.8%。
+7. 擁有數年與晶片或硬體工程師合作經驗，對於firmware開發有一定經驗，C語言尤其熟悉。
+8. 熟悉few-shot learning（小樣本訓練)，並開發bc-learning+protonet的模型訓練法，預計今、明年會發表論文。
+9. 早期有十年領導團隊開發後端系統，使用技術從ASP.Net, PHP, NodeJS,到Python Web開發皆有實作經驗，尤其包含web api的設計與實作。
+證照：
+Stanford Coursera Machine Learning Certificate.
+UDacity Deep Learning Nanodegreen.
+github : 
+1. 個人開發的對話引擎，在github開源。  
+https://github.com/xrick/wahoo
+2. 近期在目前任職公司開發用於邊緣裝置的偵測火災與煙霧警報的深度學習模型。
+    壓縮比例：18.9MB to 70KB(剪枝+量化+retrain)
+    壓縮後測試準確率：96.8%
+    github: https://github.com/xrick/uec-ai-dev
+
+===================================================================
+
+您好：
+近日得知貴公司有在召募「HCITA-AI軟體工程師(語音)」，十分希望能得到這份工作的機會，以下是我個人的簡介：
+1.個人具備對於深度學習乃至AI的研究及應用有極大的熱忱及投入。
+2. 熟悉Python, C, Golang, Pytorch, Tensorflow, TFLM。
+3. 熟悉模型剪枝與int8 post-quantization 及quantization-aware training，並有實際開發經驗。
+4. 結合剪枝與量化技術，得到更大的壓縮比，並維持一定的模型效能。
+5. 熟悉C及C++，因為數年的工作皆與晶片或硬體工程師合作，對於firmware開發有一定經驗，C語言尤其熟悉。
+6. 有數年與晶片及硬體工程師合作經驗，熟知相關專業術語及知識，也熟悉數位訊號處理。
+7. 熟悉few-shot learning，並開發bc-learning+protonet的模型訓練法，預計今、明年會發表論文。
+8. 目前假日仍就在做博班研究，研究方向有LLM、FSL在訊號上的運用。
+證照：
+Stanford Coursera Machine Learning certificate.
+UDacity Deep Learning Nanodegreen.
+github : 
+1. 個人開發的對話引擎，在github開源。  
+https://github.com/xrick/wahoo
+2. 近期在目前任職公司開發用於邊緣裝置的偵測火災與煙霧警報的深度學習模型。
+    壓縮比例：18.9MB to 70KB(剪枝+量化+retrain)
+    壓縮後測試準確率：96.8%
+    github: https://github.com/xrick/uec-ai-dev
+
+
+=======================================================
+
+您好，我叫廖介任，得知貴公司徵求「AI人工智慧開發架構師」，希望有這個榮幸獲得貴公司面試機會。
+以下是個人簡介：
+1. 熟悉Python, pytorch, tensorflow, TFLM深度學習開發框架。程式語言方面，熟悉Python, C, C++,GoLang。
+2. 熟悉軟體工程理論、物件導向軟體工程理論，同時真正實踐理論於過去開發的系統，從需求分析、可行性分析到系統架構發展再到實作與維運，皆有實際經驗。
+3. 對熟悉目前主流深度學習架構，並有實際開發經驗，如Transformers, Diffusion model, mamba, TTT architectures 等。
+4. 實際建立與帶領過兩家新創公司的深度學習部門，開發過NLP相關應用及Chatbot引擎(目前在github開源：Wahoo Chatbot。除外，還帶領過後端系統開發部門，開發同時數千人在線系統。
+5. 對深度學習每年國際會議皆有關注，並每週閱讀深度學習理論及各領域不同應用的論文，如語音理論與應用、LLM、RAG、Prompt Engineering、小樣本數據模型訓練方法等相關論文。此外，影像辨識論文也常被個人研讀，例如CVPR國際會議論文，原因在於影像與語音在深度學習的模型開發上可以互相借鏡，例如，我博班實驗室有使用影像處理上的bi-fusion方法來做語音特徵的融合，增進語音降噪模型的效能。。
+7. 實際開發極度資源限制下的深度學習模型，以剪枝與量化達成更大壓縮比，並維持一定模型效能。結合剪枝與量化技術，得到更大的壓縮比，並維持一定的模型效能。目前在現階段服務公司開發邊緣裝置：智慧型插座上使用的深度學習模型，用於偵測火災與煙霧警報聲，模型經過兩階段剪枝與Int8量化，從18.9MB壓縮到70KB，且原模型為CNN-based，同43層。剪枝後利用自行研究研究技術提升模型效能，量化後再做一次QAT，使壓縮後模型準確率仍維持96.8%。
+6. 熟悉數據分析、資料探索分析、模型開發與系統建置，能夠依照任務進行流程資料研究與除錯，以視覺化呈現增進決策品質。
+8. 目前最新開發的模型，是布署在邊緣硬體：智慧插座上，用於偵測火災與煙霧警報聲的CNN-Based深度學習模型，模型大小只有70K，硬體已準備進入量產階段。
+專案網址：https://github.com/xrick/uec-ai-dev。
+希望有機會獲得貴公司面試機會。

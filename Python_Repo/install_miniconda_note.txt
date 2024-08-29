@@ -1,0 +1,9 @@
+1.
+If you'd prefer that conda's base environment not be activated on startup,
+   run the following command when conda is activated:
+
+		conda config --set auto_activate_base false
+
+You can undo this by running `conda init --reverse $SHELL`
+
+2.
