@@ -1,1 +1,0 @@
-Researches of model generalization

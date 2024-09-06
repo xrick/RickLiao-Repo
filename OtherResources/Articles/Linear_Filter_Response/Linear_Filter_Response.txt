@@ -1,0 +1,17 @@
+ Here is a plain English explanation of linear filter response:
+
+A linear filter is a device or mathematical function that removes or suppresses certain frequencies from a signal. The response of a linear filter refers to how its output changes in response to an input signal. 
+
+Some key aspects:
+
+- A linear filter will respond predictably to a sinusoidal input signal of a given frequency. The output will be a sinusoid of the same frequency, but with altered amplitude and phase shift.
+
+- The amplitude response shows how much the filter amplifies or attenuates different input frequencies. Frequencies that are attenuated are suppressed or removed by the filter.
+
+- The phase response shows the phase shift applied to different input frequencies. Most filters delay some frequencies more than others, changing the timing between frequency components. 
+
+- Together, the amplitude and phase response shape the output waveform and determine which frequencies are passed through or blocked by the filter.
+
+- The response curves are fundamental to understanding how a filter will transform an input signal. Filters are characterized by their passbands (allowed frequencies) and stopbands (suppressed frequencies).
+
+In summary, the linear filter response refers to the predictable, frequency-dependent amplitude and phase changes imposed on a signal by the filter. The response curves visualize those effects. Knowing the response helps set filter parameters to achieve a desired output.

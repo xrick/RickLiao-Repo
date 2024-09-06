@@ -1,1 +1,0 @@
-papers of acoustics
