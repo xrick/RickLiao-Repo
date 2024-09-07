@@ -1,0 +1,8 @@
+Demo: How to use in ESPnet2
+Follow the ESPnet installation instructions if you haven't done that already.
+
+cd espnet
+git checkout 0c489a83607efb8e21331a9f01df21aac58c2a88
+pip install -e .
+cd egs2/voxceleb/spk1
+./run.sh --skip_data_prep false --skip_train true --download_model espnet/voxcelebs12_rawnet3
