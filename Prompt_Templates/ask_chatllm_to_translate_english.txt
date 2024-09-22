@@ -1,0 +1,13 @@
+please translate the following english sentences to chinese:
+""
+
+
+"where φ is a differentiable, strictly convex function of the Legendre type. Examples of Bregman
+divergences include squared Euclidean distance ∥z − z′∥2 and Mahalanobis distance.
+Prototype computation can be viewed in terms of hard clustering on the support set, with one cluster per class and each support point assigned to its corresponding class cluster. It has been shown [4] for Bregman divergences that the cluster representative achieving minimal distance to its assigned points is the cluster mean. Thus the prototype computation in Equation (1) yields optimal cluster representatives given the support set labels when a Bregman divergence is used."
+其中 φ 是一个可微分的、严格凸的勒让德类型函数。布雷格曼散度的例子包括平方欧几里得距离 ∥z − z′∥2 和马哈拉诺比斯距离。原型计算可以被视为在支持集上进行硬聚类，每个类别一个聚类，每个支持点分配给其对应的类别聚类。已经证明，对于布雷格曼散度，达到与其分配点最小距离的聚类代表是聚类均值。因此，当使用布雷格曼散度时，方程 (1) 中的原型计算在给定支持集标签时产生最佳聚类代表。
+
+
+"For a particular class of distance functions, known as regular Bregman divergences [4], the prototypi- cal networks algorithm is equivalent to performing mixture density estimation on the support set with an exponential family density."
+对于一类特定的距离函数，称为常规布雷格曼散度 ，原型网络算法等同于在支持集上使用指数族密度进行混合密度估计。
+
