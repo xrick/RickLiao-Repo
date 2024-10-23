@@ -22,6 +22,7 @@ def rag_correction(asr_output, context):
     best_score = 0
     
     for phrase, info in knowledge_base.items():
+        
         # 檢查模糊匹配分數
         score = fuzz.ratio(asr_output, phrase)
         

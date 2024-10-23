@@ -23,7 +23,7 @@ def rag_correction(asr_output, context, knowledge_base):
     for phrase, info in knowledge_base.items():
         # 計算字符串相似度
         base_score = fuzz.ratio(asr_output, phrase)
-        
+        print(f"asr_output:{asr_output}, phrase:{phrase}");
         # 計算上下文相關性
         context_score = sum(10 for c in context if c in info['context'])
         
@@ -33,6 +33,11 @@ def rag_correction(asr_output, context, knowledge_base):
         if total_score > best_score:
             best_score = total_score
             best_match = phrase
+
+        print(f"phrase:{phrase}, info:{info}");
+        print(f"best_score:{best_score}");
+        print(f"best_match:{best_match}");
+        print("==========================================");
 
     if best_score < threshold:
         # 可能是新詞，添加到知識庫
@@ -56,14 +61,14 @@ def main():
             "楊大先生": {
                 "correct": "楊大先生",
                 "variants": ["揚大先生", "陽大先生", "養大先生"],
-                "context": ["名字", "人物", "先生"]
+                "context": ["這是一個人名字", "這是一個人物", "這是一位先生"]
             }
         }
         save_knowledge_base(knowledge_base)
 
     # 模擬 ASR 輸出，包括一個新詞
     test_cases = [
-        ("揚大先生", ["這是一個人名", "他是一位先生"]),
+        ("陳副主委", ["機車委員會", "專業事務官"]),
         ("陽大先生", ["這是一個人名", "他是一位教授"]),
         ("楊大先生", ["這是一個人名", "他是一位醫生"]),
         ("養大先生", ["這是一個人名", "他是一位工程師"]),
