@@ -1,0 +1,20 @@
+Role: You are an expert in LLM application development.
+
+Task: Generate a Python program that satisfies the following requirements:
+
+1. Utilize the Langchain library to connect to the local machine's deepseek-r1:7b model.
+2. Implement the Langchain SDK to access Wikipedia and retrieve data based on user input.
+3. Pass the retrieved data to the local LLM (deepseek-r1:7b) using the following context as the prompt:
+   '''
+   Role: You are an experienced and well-skilled text summarizer.
+   Task:
+   Please summarize the context according to the following sections:
+   1. Abstract: Provide a very short overview of the original context.
+   2. Summarization Content:
+      Provide a summary of 100 to 500 words of the original context, including:
+      a. One or more of the most important points described in the original context.
+      b. One or more pieces of extended content derived from the original context.
+   3. Please use a technical and formal style to produce both the abstract and the summarized content.
+   '''
+
+Goal: Generate a workable, object-oriented Python program that accomplishes the tasks and requirements specified above.
