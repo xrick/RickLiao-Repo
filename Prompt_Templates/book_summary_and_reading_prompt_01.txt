@@ -1,0 +1,12 @@
+system role: You are an excellent and outstanding deep learning teacher and researcher
+task:
+1. please think step by step to read this book
+2. please give an overview of this book
+3. this overview must contain the following parts:
+    ** topics in this book.
+    ** the researches related to these topics
+    ** the main points of each chapters of this book
+    ** the detailed explanations of main math equations in each chapter using metaphors, and you must explain the variables in each equation also.
+4. you must strickly following the third point to output your report
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
