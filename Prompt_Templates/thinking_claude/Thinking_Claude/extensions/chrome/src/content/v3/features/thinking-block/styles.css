@@ -1,0 +1,195 @@
+/* Overwrite original claude thinking block content styles */
+div[data-is-streaming] pre:first-child .code-block__code {
+  background: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  color: var(--text-text-200) !important;
+  padding: 1em !important;
+  max-width: 100%;
+  display: block;
+  height: auto !important;
+  min-height: 0vh !important;
+  max-height: 50vh !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease-out !important;
+}
+
+/* Collapsed states */
+div[data-is-streaming] pre:first-child .code-block__code.collapsed {
+  height: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Collapsed state */
+[data-tc-thinking-block-state="collapsed"]
+  div[data-is-streaming]
+  pre:first-child
+  .code-block__code {
+  height: 0 !important;
+  padding: 0 !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Expanded state */
+/* [data-tc-thinking-block-state="expanded"] div[data-is-streaming] pre:first-child .code-block__code {
+  height: 50vh !important;
+  padding: 1em !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+} */
+
+div[data-is-streaming] pre:first-child code {
+  background: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  text-wrap: balance !important;
+  color: hsl(var(--text-300)) !important;
+  font-size: 0.875rem !important;
+  display: block !important;
+  max-width: 100% !important;
+  text-shadow: none !important;
+}
+
+/* Add selection styles */
+code span::selection {
+  background: hsl(var(--clay) / var(--tw-text-opacity)) !important;
+  color: hsl(var(--text-100)) !important;
+}
+
+code span::-moz-selection {
+  background: hsl(var(--clay) / var(--tw-text-opacity)) !important;
+  color: hsl(var(--text-100)) !important;
+}
+
+code span:hover {
+  transition: color 0.4s ease;
+  color: hsl(var(--text-100));
+}
+
+/* --------------------------------- */
+
+/* Copy button container */
+div[data-is-streaming] pre:first-child .pointer-events-none.sticky {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+/* Copy button container */
+div[data-is-streaming] pre:first-child .from-bg-300\\/90 {
+  pointer-events: auto !important;
+  user-select: none !important;
+}
+
+/* --------------------------------- */
+
+/* Update the header text */
+/* This is the original header text */
+div[data-is-streaming]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty) {
+  font-size: 0; /* Hide original text */
+  pointer-events: auto !important; /* Make sure it's clickable */
+  cursor: pointer !important;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-user-message);
+}
+
+/* Update the text of the header */
+
+div[data-tc-thinking-block-state="collapsed"]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty)::after {
+  content: "View Claude's thinking" !important;
+  font-size: 0.875rem; /* Restore font size */
+  cursor: pointer;
+  font-family: var(--font-user-message);
+  transition: color 0.15s ease-in-out;
+}
+
+div[data-is-streaming]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty)::after {
+  content: "Claude's thinking";
+  font-size: 0.875rem; /* Restore font size */
+  cursor: pointer;
+  font-family: var(--font-user-message);
+  transition: color 0.15s ease-in-out;
+}
+
+/* Hover state */
+/* This implementation is limited. We can consider to disable this hover state. */
+[data-tc-thinking-block-state="expanded"]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty):hover::after {
+  color: hsl(var(--text-100));
+  content: "Hide Claude's thinking";
+}
+
+/* Streaming state styles */
+div[data-is-streaming="true"]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty)::after {
+  content: "Claude is thinking...";
+  background: linear-gradient(
+    90deg,
+    rgba(156, 163, 175, 0.7) 0%,
+    rgba(209, 213, 219, 1) 25%,
+    rgba(156, 163, 175, 0.7) 50%,
+    rgba(209, 213, 219, 1) 75%,
+    rgba(156, 163, 175, 0.7) 100%
+  );
+  background-size: 200% 100%;
+  animation: gradientWave 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  cursor: pointer;
+  font-family: var(--font-user-message);
+}
+
+/* Chevron-down icon */
+pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty)::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  margin-right: 0.25rem;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z" fill="black" fill-rule="evenodd" clip-rule="evenodd"></path></svg>');
+  mask-image: url('data:image/svg+xml;utf8,<svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg"><path d="M3.13523 6.15803C3.3241 5.95657 3.64052 5.94637 3.84197 6.13523L7.5 9.56464L11.158 6.13523C11.3595 5.94637 11.6759 5.95657 11.8648 6.15803C12.0536 6.35949 12.0434 6.67591 11.842 6.86477L7.84197 10.6148C7.64964 10.7951 7.35036 10.7951 7.15803 10.6148L3.15803 6.86477C2.95657 6.67591 2.94637 6.35949 3.13523 6.15803Z" fill="black" fill-rule="evenodd" clip-rule="evenodd"></path></svg>');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  background-color: hsl(var(--text-500));
+  transform: translateY(-1px);
+  transition: transform 0.25s ease-out;
+}
+
+/* Chevron animation */
+[data-tc-thinking-block-state="collapsed"]
+  pre:first-child
+  .text-text-300.absolute.pl-3.pt-2\.5.text-xs:not(:empty)::before {
+  transform: rotate(180deg) !important;
+}
+
+/* --------------------------------- */
+
+/* Shimmer animation for streaming state */
+@keyframes gradientWave {
+  0% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: -200% 50%;
+  }
+}
+
+/* --------------------------------- */

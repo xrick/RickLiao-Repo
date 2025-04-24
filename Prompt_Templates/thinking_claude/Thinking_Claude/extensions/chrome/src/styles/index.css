@@ -1,0 +1,4 @@
+@import "./globals.css";
+
+/* Import feature styles after Tailwind layers to ensure they have highest specificity */
+@import "@/content/v3/features/thinking-block/styles.css";
