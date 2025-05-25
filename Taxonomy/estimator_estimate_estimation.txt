@@ -1,0 +1,34 @@
+In statistics, an estimator is a rule or formula used to calculate an estimate based on sample data, while an estimate is the specific value calculated by applying that rule to a particular sample. Estimation refers to the process of using an estimator to produce an estimate, often involving making an approximation or educated guess. 
+在統計學中，估計量是一種用於根據樣本數據計算估計值的規則或公式，而估計值是將該規則應用於特定樣本後計算出的具體數值。估計指的是使用估計量來產生估計值的過程，通常涉及進行近似或有根據的猜測。
+
+Here's a breakdown:
+以下是詳細說明：
+
+Estimator:  估計量：
+A mathematical function or formula used to calculate a parameter's value based on sample data. It's the "recipe" for finding an estimate. 
+一種用於根據樣本數據計算參數值的數學函數或公式。它是尋找估計值的「配方」。
+
+
+Estimate:  估計值：
+The numerical value obtained by applying the estimator to a specific sample. It's the result of using the estimator on actual data. 
+將估計量應用於特定樣本所得到的數值。它是使用估計量對實際數據進行計算的結果。
+
+Estimation:  估計過程：
+The process of finding an estimate, which involves using an estimator to make an approximate calculation or guess. It's the broader concept of using data to infer the value of a population parameter. 
+尋找估計值的過程，涉及使用估計量進行近似計算或猜測。這是利用數據推斷母體參數值的更廣泛概念。
+
+Analogy:
+   類比：
+Think of an estimator like a blueprint for building a house. The blueprint provides instructions on how to build the house (calculate an estimate). The estimate is the actual house built according to the blueprint (the value calculated by the estimator). Estimation is the entire process of designing and building the house (finding an estimate using the estimator).
+
+可以將估計量想像成建造房屋的藍圖。藍圖提供了如何建造房屋的指示（計算估計值）。估計值是根據藍圖建造的實際房屋（由估計量計算出的值）。估計則是設計和建造房屋的整個過程（使用估計量找到估計值）。
+Example:  範例：
+Imagine you want to estimate the average height of all students in a university. 
+
+想像你想要估計一所大學所有學生的平均身高。
+Estimator: The sample mean (average) calculated from a random sample of students' heights.
+估計量：從隨機抽取的學生身高樣本中計算出的樣本平均值（平均數）。
+Estimate: The actual calculated average height from your sample of students.
+估計值：從你的學生樣本中實際計算出的平均身高。
+Estimation: The process of selecting a sample, calculating the sample mean, and using that value as an estimate of the population mean.
+估計過程：選取樣本、計算樣本平均值，並將該值用作母體平均數的估計值的過程。
