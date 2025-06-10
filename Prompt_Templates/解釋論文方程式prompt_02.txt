@@ -1,0 +1,7 @@
+please explain the all equations in this paper, and statisfiy the following requirements:
+1. use plain traditional chinese language to explain it.
+2. using metaphors
+3. exaplain concepts of equations first.
+4. explain the equation variables secondly.
+5. explain how the equation calculate thirdly.
+6. expalin the relationships among all the equations in this paper.
