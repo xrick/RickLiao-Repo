@@ -1,0 +1,21 @@
+# 你自己的 LLM 呼叫函式（示意：可接任何供應商/本地模型）
+def my_llm_call(prompt: str) -> str:
+    # TODO: 在此放入你的實際 LLM API 呼叫
+    # 這裡示範「固定回覆」方便你先整合測試：
+    if "請比對ATX834與AYU996的螢幕" in prompt and "[MODE]\nkeywords" in prompt:
+        return "ATX834, AYU996, 螢幕, 比對"
+    if "請比對ATX834與AYU996的螢幕" in prompt and "[MODE]\njson" in prompt:
+        return '{"models":["ATX834","AYU996"],"attributes":["螢幕"],"actions":["比對"],"entities":[],"raw_keywords":["ATX834","AYU996","螢幕","比對"]}'
+    return "ATX834, AYU996, 螢幕, 比對"
+
+# 1) 關鍵詞字串模式
+s = extract_keywords("請比對ATX834與AYU996的螢幕", my_llm_call, mode="keywords")
+print(s)  # ATX834, AYU996, 螢幕, 比對
+
+# 2) 結構化 JSON 模式
+j = extract_keywords("請比對ATX834與AYU996的螢幕", my_llm_call, mode="json")
+print(j)  # {'models': [...], 'attributes': [...], ...}
+
+# 3) 不接 LLM 也能用（本地後備）
+no_llm = extract_keywords("compare iPhone 15 Pro battery life vs S24 Ultra", None, mode="keywords")
+print(no_llm)
