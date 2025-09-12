@@ -1,0 +1,58 @@
+import requests
+import json
+
+# ---- Ollama text-completion caller ----
+def ollama_call(prompt: str,
+                model: str = "llama3:8b",
+                host: str = "http://localhost:11434",
+                options: dict = None,
+                timeout: int = 120) -> str:
+    """
+    Call Ollama /api/generate with a raw prompt and return the full text.
+    - model: any local model pulled by Ollama (e.g., 'llama3:8b', 'mistral:7b', 'qwen2:7b')
+    - options: Ollama generation options (e.g., {'temperature': 0.1, 'num_ctx': 2048})
+    """
+    payload = {
+        "model": model,
+        "prompt": prompt,
+        "stream": False
+    }
+    if options:
+        payload["options"] = options
+
+    url = f"{host}/api/generate"
+    try:
+        r = requests.post(url, json=payload, timeout=timeout)
+        r.raise_for_status()
+        data = r.json()
+        # Ollama returns {"response": "...", "done": true, ...}
+        return (data.get("response") or "").strip()
+    except requests.RequestException as e:
+        # propagate a readable error for your fallback path
+        raise RuntimeError(f"Ollama call failed: {e}") from e
+
+# ---- (OPTIONAL) If you prefer the Chat API style, use this instead ----
+def ollama_chat_call(system_content: str, user_content: str,
+                     model: str = "llama3:8b",
+                     host: str = "http://localhost:11434",
+                     options: dict = None,
+                     timeout: int = 120) -> str:
+    """
+    Call Ollama /api/chat with system+user messages and return the assistant text.
+    """
+    messages = [
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content},
+    ]
+    payload = {"model": model, "messages": messages, "stream": False}
+    if options:
+        payload["options"] = options
+    url = f"{host}/api/chat"
+    try:
+        r = requests.post(url, json=payload, timeout=timeout)
+        r.raise_for_status()
+        data = r.json()
+        # {"message":{"role":"assistant","content":"..."}, ...}
+        return (data.get("message", {}).get("content") or "").strip()
+    except requests.RequestException as e:
+        raise RuntimeError(f"Ollama chat call failed: {e}") from e
