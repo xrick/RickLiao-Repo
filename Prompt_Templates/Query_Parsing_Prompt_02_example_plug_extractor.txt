@@ -1,0 +1,15 @@
+# choose deterministic-ish decoding
+OLLAMA_OPTIONS = {"temperature": 0.1}
+
+def my_llm_call(prompt: str) -> str:
+    # use text-completion route that matches our single prompt format
+    return ollama_call(prompt, model="llama3:8b", options=OLLAMA_OPTIONS)
+
+# Example run
+from pprint import pprint
+
+s = extract_keywords("請比對ATX834與AYU996的螢幕", my_llm_call, mode="keywords")
+print(s)  # -> ATX834, AYU996, 螢幕, 比對
+
+j = extract_keywords("請比對ATX834與AYU996的螢幕", my_llm_call, mode="json")
+pprint(j)
