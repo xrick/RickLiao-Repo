@@ -1,0 +1,227 @@
+import re
+import json
+from typing import Callable, Dict, List, Optional, Union
+
+# --- 可調整：常見屬性與動作（保留原文，但可用於本地分類/補全） ---
+ATTRIBUTE_HINTS = {
+    "螢幕": ["螢幕", "面板", "顯示器", "screen", "display"],
+    "重量": ["重量", "重", "weight"],
+    "價格": ["價格", "售價", "價錢", "price", "cost"],
+    "電池": ["電池", "續航", "battery", "battery life"],
+    "尺寸": ["尺寸", "大小", "size", "inch", "吋"],
+    "記憶體": ["記憶體", "ram", "內存"],
+    "儲存": ["儲存", "ssd", "storage"],
+    "處理器": ["處理器", "cpu", "晶片", "chip"],
+    "顯示卡": ["顯示卡", "GPU", "顯卡"],
+    "相機": ["相機", "鏡頭", "camera"]
+}
+
+ACTION_HINTS = {
+    "比對": ["比對", "比較", "compare", "vs"],
+    "查詢": ["查詢", "找", "search", "query", "lookup"],
+    "推薦": ["推薦", "建議", "recommend", "suggest"],
+    "評測": ["評測", "review", "測試", "benchmark"],
+}
+
+# 停用詞（可擴充）
+STOPWORDS = set([
+    "的","了","和","與","及","或","而且","還有","和","and","the","a","an","to","for","in","on","at","請","幫我","請問"
+])
+
+# 模型/型號樣式：大寫字母數字混合、帶破折號/空格/系列名；也允許品牌+系列（簡單啟發式）
+MODEL_PAT = re.compile(
+    r"(?:[A-Z][A-Za-z]+(?:\s+[A-Z0-9][A-Za-z0-9\-]+){0,3}|[A-Z0-9]{2,}(?:\-[A-Z0-9]+)*)"
+)
+
+def _normalize_token(tok: str) -> str:
+    return tok.strip().strip(",;，；。.!?")
+
+def _is_stop(tok: str) -> bool:
+    t = tok.lower()
+    return (t in STOPWORDS) or (len(t) <= 1)
+
+def _match_category(tok: str, hints: Dict[str, List[str]]) -> Optional[str]:
+    t = tok.lower()
+    for k, vs in hints.items():
+        for v in vs:
+            if v.lower() == t:
+                return tok  # 保留原文
+    return None
+
+def _local_fallback_extract(user_text: str) -> Dict[str, List[str]]:
+    # 1) 抓潛在型號
+    model_candidates = set()
+    for m in MODEL_PAT.finditer(user_text):
+        s = _normalize_token(m.group(0))
+        # 過濾過長/全普通詞
+        if len(s) >= 3:
+            model_candidates.add(s)
+
+    # 2) 粗分詞（很簡單，交給 LLM 前的保險）
+    rough_tokens = re.split(r"[\s,;，；。/\\()\[\]:]+", user_text)
+    rough_tokens = [_normalize_token(t) for t in rough_tokens if t.strip()]
+
+    # 3) 過濾停用詞
+    content_tokens = [t for t in rough_tokens if not _is_stop(t)]
+
+    # 4) 依詞典判斷屬性與動作（保留原文）
+    attributes, actions, entities = set(), set(), set()
+    for tok in content_tokens:
+        if tok in model_candidates:
+            continue
+        if _match_category(tok, ATTRIBUTE_HINTS):
+            attributes.add(tok)
+        elif _match_category(tok, ACTION_HINTS):
+            actions.add(tok)
+        else:
+            entities.add(tok)
+
+    # 5) 去掉和 models 重複的 entity
+    entities = {e for e in entities if e not in model_candidates}
+
+    # 組裝
+    # raw_keywords：合併（順序粗略，用 set 去重）
+    raw_keywords = list(model_candidates | attributes | actions | entities)
+
+    return {
+        "models": sorted(model_candidates),
+        "attributes": sorted(attributes),
+        "actions": sorted(actions),
+        "entities": sorted(entities),
+        "raw_keywords": sorted(set(raw_keywords)),
+    }
+
+def build_prompt(user_text: str, mode: str = "keywords") -> str:
+    mode = mode.lower()
+    header = (
+        "[ROLE]\n你是一個關鍵詞抽取器。請把使用者輸入的自然語句，抽取成關鍵詞（含：產品型號、屬性名稱、動作/意圖、其他重要名詞）。\n\n"
+        "[OUTPUT RULES]\n"
+        "1) 只輸出指定格式；不要加入解釋或多餘文字。\n"
+        "2) 保留原文詞形（不要同義改寫）；型號/代碼務必原樣保留。\n"
+        "3) 若指定 mode=keywords：輸出逗號分隔的一行字串。\n"
+        "4) 若指定 mode=json：輸出 JSON，結構如下（鍵名固定、順序不限）：\n"
+        "   {\n"
+        '     "models": [string...],\n'
+        '     "attributes": [string...],\n'
+        '     "actions": [string...],\n'
+        '     "entities": [string...],\n'
+        '     "raw_keywords": [string...]\n'
+        "   }\n\n"
+        "[IMPORTANT]\n"
+        " - 只取關鍵詞；去除助詞/功能詞。\n"
+        " - 多語輸入可混合；一律保留原文詞形。\n"
+        " - 若無法判斷某類，輸出空陣列（JSON）或略過（keywords）。\n\n"
+        "[FEW-SHOTS]\n"
+        "輸入：請比對ATX834與AYU996的螢幕\n"
+        "keywords 輸出：ATX834, AYU996, 螢幕, 比對\n"
+        'json 輸出：{"models":["ATX834","AYU996"],"attributes":["螢幕"],"actions":["比對"],"entities":[],"raw_keywords":["ATX834","AYU996","螢幕","比對"]}\n\n'
+        "輸入：查詢 ThinkPad X1 的重量與價格\n"
+        "keywords 輸出：ThinkPad X1, 重量, 價格, 查詢\n"
+        'json 輸出：{"models":["ThinkPad X1"],"attributes":["重量","價格"],"actions":["查詢"],"entities":[],"raw_keywords":["ThinkPad X1","重量","價格","查詢"]}\n\n'
+        "輸入：compare iPhone 15 Pro battery life vs S24 Ultra\n"
+        "keywords 輸出：iPhone 15 Pro, S24 Ultra, battery life, compare\n"
+        'json 輸出：{"models":["iPhone 15 Pro","S24 Ultra"],"attributes":["battery life"],"actions":["compare"],"entities":[],"raw_keywords":["iPhone 15 Pro","S24 Ultra","battery life","compare"]}\n\n'
+    )
+    tail = f"[MODE]\n{mode}\n\n[USER]\n{user_text}"
+    return header + tail
+
+def parse_llm_output(text: str, mode: str) -> Dict[str, List[str]]:
+    mode = mode.lower()
+    if mode == "json":
+        try:
+            data = json.loads(text)
+            # 兜底鍵
+            return {
+                "models": data.get("models", []) or [],
+                "attributes": data.get("attributes", []) or [],
+                "actions": data.get("actions", []) or [],
+                "entities": data.get("entities", []) or [],
+                "raw_keywords": data.get("raw_keywords", []) or [],
+            }
+        except Exception:
+            # 無法解析 JSON 就退回本地抽取
+            return _local_fallback_extract(text)
+    else:
+        # keywords 模式：逗號分隔
+        parts = [ _normalize_token(p) for p in text.split(",") ]
+        parts = [ p for p in parts if p ]
+        # 粗分：用本地分類器補欄位
+        base = _local_fallback_extract(" ".join(parts))
+        # raw_keywords 以 LLM 輸出為主
+        base["raw_keywords"] = parts
+        return base
+
+def extract_keywords(
+    user_text: str,
+    llm_call: Optional[Callable[[str], str]] = None,
+    *,
+    mode: str = "keywords",         # "keywords" 或 "json"
+    dedup: bool = True,
+    lowercase: bool = False,         # 是否全小寫（建議保持 False，以保留型號大小寫）
+    fallback: bool = True
+) -> Union[str, Dict[str, List[str]]]:
+    """
+    對外主函式：
+    - 若 mode="keywords"  -> 回傳逗號分隔字串（或 LLM 的原樣字串）
+    - 若 mode="json"      -> 回傳結構化 dict
+    """
+    prompt = build_prompt(user_text, mode=mode)
+
+    llm_text = None
+    if llm_call is not None:
+        try:
+            llm_text = llm_call(prompt).strip()
+        except Exception:
+            llm_text = None
+
+    if not llm_text and fallback:
+        # 用本地抽取結果生成對應模式的輸出
+        parsed = _local_fallback_extract(user_text)
+        if mode.lower() == "json":
+            out = parsed
+        else:
+            out = ", ".join(parsed["raw_keywords"])
+        return _postprocess(out, dedup, lowercase)
+    else:
+        # 解析 LLM 輸出
+        parsed = parse_llm_output(llm_text or "", mode=mode)
+        if mode.lower() == "json":
+            return _postprocess(parsed, dedup, lowercase)
+        else:
+            # keywords 模式直接回字串；如需規整，也可用 parsed["raw_keywords"]
+            return _postprocess(llm_text or "", dedup, lowercase)
+
+def _postprocess(x: Union[str, Dict[str, List[str]]], dedup: bool, lowercase: bool):
+    if isinstance(x, str):
+        s = x.strip()
+        if dedup:
+            toks = [t.strip() for t in s.split(",") if t.strip()]
+            seen, out = set(), []
+            for t in toks:
+                t2 = t.lower() if lowercase else t
+                if t2 not in seen:
+                    seen.add(t2)
+                    out.append(t2)
+            return ", ".join(out)
+        return s.lower() if lowercase else s
+    else:
+        # dict
+        def norm_list(lst: List[str]) -> List[str]:
+            out, seen = [], set()
+            for t in lst:
+                t2 = t.strip()
+                if not t2: 
+                    continue
+                if lowercase:
+                    t2 = t2.lower()
+                if (not dedup) or (t2 not in seen):
+                    seen.add(t2)
+                    out.append(t2)
+            return out
+        return {
+            "models": norm_list(x.get("models", [])),
+            "attributes": norm_list(x.get("attributes", [])),
+            "actions": norm_list(x.get("actions", [])),
+            "entities": norm_list(x.get("entities", [])),
+            "raw_keywords": norm_list(x.get("raw_keywords", [])),
+        }
