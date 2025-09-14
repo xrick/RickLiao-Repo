@@ -1,0 +1,351 @@
+我來為您提供多個 Query Parsing Prompt 的範例，涵蓋不同的應用場景：
+
+## 1. 電商搜尋查詢解析
+
+```markdown
+### Query Parsing Prompt - E-commerce Search
+
+You are a query parser for an e-commerce platform. Parse the user's search query and extract the following information:
+
+**Input**: User's search query
+**Output**: JSON format with the following fields:
+- product_type: The type of product being searched
+- brand: Brand name if mentioned
+- color: Color preference if mentioned
+- size: Size requirement if mentioned
+- price_range: Price range if mentioned (min, max)
+- features: List of specific features mentioned
+- sort_by: Sorting preference (price_low_to_high, price_high_to_low, relevance, rating)
+
+**Examples**:
+Input: "紅色 Nike 運動鞋 size 42 5000元以下"
+Output:
+```json
+{
+  "product_type": "運動鞋",
+  "brand": "Nike",
+  "color": "紅色",
+  "size": "42",
+  "price_range": {"min": 0, "max": 5000},
+  "features": [],
+  "sort_by": "relevance"
+}
+```
+
+Input: "防水登山背包 40L 以上 評價高的"
+Output:
+```json
+{
+  "product_type": "登山背包",
+  "brand": null,
+  "color": null,
+  "size": "40L以上",
+  "price_range": null,
+  "features": ["防水"],
+  "sort_by": "rating"
+}
+```
+```
+
+## 2. 自然語言轉 SQL 查詢
+
+```markdown
+### Query Parsing Prompt - Natural Language to SQL
+
+You are a SQL query parser. Convert natural language queries into structured SQL components.
+
+**Database Schema**:
+- users (id, name, email, created_at, country)
+- orders (id, user_id, product_id, amount, order_date)
+- products (id, name, category, price)
+
+**Task**: Parse the natural language query and extract:
+1. Tables involved
+2. Columns to select
+3. Filter conditions
+4. Aggregations
+5. Sorting requirements
+6. Grouping requirements
+
+**Output Format**:
+```json
+{
+  "tables": [],
+  "select_columns": [],
+  "where_conditions": [],
+  "group_by": [],
+  "order_by": [],
+  "aggregations": [],
+  "limit": null
+}
+```
+
+**Examples**:
+Input: "顯示上個月來自台灣的用戶訂單總金額，按金額排序"
+Output:
+```json
+{
+  "tables": ["users", "orders"],
+  "select_columns": ["users.name", "SUM(orders.amount)"],
+  "where_conditions": [
+    "users.country = 'Taiwan'",
+    "orders.order_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)"
+  ],
+  "group_by": ["users.id"],
+  "order_by": ["SUM(orders.amount) DESC"],
+  "aggregations": ["SUM(orders.amount)"],
+  "limit": null
+}
+```
+```
+
+## 3. 意圖識別與槽位填充
+
+```markdown
+### Query Parsing Prompt - Intent Recognition & Slot Filling
+
+You are an intent classifier and slot extractor for a travel booking system.
+
+**Available Intents**:
+- book_flight: User wants to book a flight
+- check_flight_status: User wants to check flight status
+- book_hotel: User wants to book a hotel
+- cancel_booking: User wants to cancel a booking
+- general_inquiry: General questions
+
+**Task**: Identify the intent and extract relevant slots.
+
+**Output Format**:
+```json
+{
+  "intent": "intent_name",
+  "confidence": 0.0-1.0,
+  "slots": {
+    "slot_name": "value"
+  }
+}
+```
+
+**Examples**:
+Input: "我想訂明天從台北到東京的機票"
+Output:
+```json
+{
+  "intent": "book_flight",
+  "confidence": 0.95,
+  "slots": {
+    "departure_city": "台北",
+    "arrival_city": "東京",
+    "departure_date": "明天",
+    "trip_type": "one_way",
+    "class": null,
+    "passengers": 1
+  }
+}
+```
+
+Input: "BR225 航班現在到哪了"
+Output:
+```json
+{
+  "intent": "check_flight_status",
+  "confidence": 0.98,
+  "slots": {
+    "flight_number": "BR225",
+    "date": "今天"
+  }
+}
+```
+```
+
+## 4. 複雜查詢解構
+
+```markdown
+### Query Parsing Prompt - Complex Query Decomposition
+
+You are a query decomposer that breaks down complex queries into sub-queries.
+
+**Task**: Decompose complex user queries into atomic sub-queries that can be processed independently.
+
+**Output Format**:
+```json
+{
+  "main_query": "original query",
+  "sub_queries": [
+    {
+      "id": 1,
+      "query": "sub-query",
+      "type": "query type",
+      "dependencies": []
+    }
+  ],
+  "execution_order": []
+}
+```
+
+**Example**:
+Input: "比較去年和今年第一季的銷售額，並找出成長最快的前5個產品類別"
+Output:
+```json
+{
+  "main_query": "比較去年和今年第一季的銷售額，並找出成長最快的前5個產品類別",
+  "sub_queries": [
+    {
+      "id": 1,
+      "query": "計算去年第一季各產品類別的銷售額",
+      "type": "aggregation",
+      "dependencies": []
+    },
+    {
+      "id": 2,
+      "query": "計算今年第一季各產品類別的銷售額",
+      "type": "aggregation",
+      "dependencies": []
+    },
+    {
+      "id": 3,
+      "query": "計算各類別的成長率",
+      "type": "calculation",
+      "dependencies": [1, 2]
+    },
+    {
+      "id": 4,
+      "query": "找出成長最快的前5個類別",
+      "type": "ranking",
+      "dependencies": [3]
+    }
+  ],
+  "execution_order": [1, 2, 3, 4]
+}
+```
+```
+
+## 5. 多語言查詢標準化
+
+```markdown
+### Query Parsing Prompt - Multilingual Query Normalization
+
+You are a multilingual query normalizer. Standardize queries from different languages into a common format.
+
+**Task**: 
+1. Detect the language
+2. Translate key terms to English
+3. Normalize the query structure
+4. Preserve cultural context when relevant
+
+**Output Format**:
+```json
+{
+  "original_query": "",
+  "detected_language": "",
+  "normalized_query": "",
+  "key_terms": {
+    "original": "",
+    "translated": "",
+    "category": ""
+  },
+  "cultural_context": []
+}
+```
+
+**Example**:
+Input: "おすすめの寿司屋 渋谷駅近く"
+Output:
+```json
+{
+  "original_query": "おすすめの寿司屋 渋谷駅近く",
+  "detected_language": "Japanese",
+  "normalized_query": "recommended sushi restaurant near Shibuya station",
+  "key_terms": {
+    "寿司屋": {
+      "translated": "sushi restaurant",
+      "category": "cuisine_type"
+    },
+    "渋谷駅": {
+      "translated": "Shibuya station",
+      "category": "location"
+    },
+    "おすすめ": {
+      "translated": "recommended",
+      "category": "preference"
+    }
+  },
+  "cultural_context": ["Japanese cuisine", "Tokyo location"]
+}
+```
+```
+
+## 6. 時間表達式解析
+
+```markdown
+### Query Parsing Prompt - Temporal Expression Parser
+
+You are a temporal expression parser. Extract and normalize time-related information from queries.
+
+**Current Date**: 2024-01-15 (Monday)
+
+**Task**: Parse temporal expressions and convert them to standard date/time formats.
+
+**Output Format**:
+```json
+{
+  "expressions": [
+    {
+      "original": "",
+      "type": "point|range|duration|recurring",
+      "normalized": {
+        "start": "ISO 8601 format",
+        "end": "ISO 8601 format",
+        "duration": "ISO 8601 duration"
+      }
+    }
+  ]
+}
+```
+
+**Examples**:
+Input: "下週二下午3點到5點的會議"
+Output:
+```json
+{
+  "expressions": [
+    {
+      "original": "下週二下午3點到5點",
+      "type": "range",
+      "normalized": {
+        "start": "2024-01-23T15:00:00",
+        "end": "2024-01-23T17:00:00",
+        "duration": "PT2H"
+      }
+    }
+  ]
+}
+```
+
+Input: "每個月的第一個和第三個星期五"
+Output:
+```json
+{
+  "expressions": [
+    {
+      "original": "每個月的第一個和第三個星期五",
+      "type": "recurring",
+      "normalized": {
+        "recurrence_rule": "FREQ=MONTHLY;BYDAY=1FR,3FR",
+        "description": "First and third Friday of every month"
+      }
+    }
+  ]
+}
+```
+```
+
+## 使用建議
+
+1. **明確定義輸出格式**：使用 JSON 或其他結構化格式，方便後續處理
+2. **提供豐富的範例**：涵蓋各種邊界情況和常見模式
+3. **設定清晰的規則**：處理歧義、缺失值、多語言等情況
+4. **考慮上下文**：某些查詢可能需要考慮對話歷史或用戶偏好
+5. **錯誤處理**：定義如何處理無法解析的查詢
+
+這些範例可以根據您的具體需求進行調整和擴展。您有特定的應用場景想要更詳細的 query parsing prompt 嗎？

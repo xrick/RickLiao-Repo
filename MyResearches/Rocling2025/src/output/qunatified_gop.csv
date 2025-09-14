@@ -1,0 +1,1 @@
+uttid,actual_phoneme,mispronounced_phoneme,start_frame,end_frame,posterior_prob_standard,posterior_prob_temp,max_logit,logit_margin,entropy,renyi_entropy,tsallis_entropy,mispronounced

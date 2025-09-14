@@ -1,0 +1,402 @@
+  <!DOCTYPE html>
+  <html lang="zh-TW">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>提示工程測試平台 - Ollama GPT-OSS:20B</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <style>
+          .loading-spinner {
+              border: 3px solid #f3f3f3;
+              border-top: 3px solid #3498db;
+              border-radius: 50%;
+              width: 20px;
+              height: 20px;
+              animation: spin 1s linear infinite;
+              display: inline-block;
+              margin-left: 10px;
+          }
+          
+          @keyframes spin {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+          }
+          
+          .prompt-template {
+              cursor: pointer;
+              transition: all 0.3s ease;
+          }
+          
+          .prompt-template:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+      </style>
+  </head>
+  <body class="bg-gray-50">
+      <div class="container mx-auto px-4 py-8 max-w-6xl">
+          <!-- 標題區 -->
+          <header class="text-center mb-8">
+              <h1 class="text-4xl font-bold text-gray-800 mb-2">提示工程測試平台</h1>
+              <p class="text-gray-600">使用 Ollama + GPT-OSS:20B 進行提示詞測試與優化</p>
+              <div class="mt-4 flex items-center justify-center gap-4">
+                  <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm" id="connection-status">
+                      ⚡ 連接狀態：檢查中...
+                  </span>
+                  <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                      🤖 模型：gpt-oss:20b
+                  </span>
+              </div>
+          </header>
+
+          <!-- 主要內容區 -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- 左側：提示詞輸入區 -->
+              <div class="lg:col-span-2 space-y-6">
+                  <!-- 系統提示詞 -->
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                      <h2 class="text-xl font-semibold mb-4 text-gray-700">系統提示詞 (System Prompt)</h2>
+                      <textarea 
+                          id="system-prompt" 
+                          class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="設定模型的角色、行為準則和回應風格..."
+                      >你是一個專業的AI助手，請用繁體中文回答問題。回答時要準確、有條理，並保持友善的語氣。</textarea>
+                  </div>
+
+                  <!-- 使用者提示詞 -->
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                      <h2 class="text-xl font-semibold mb-4 text-gray-700">使用者提示詞 (User Prompt)</h2>
+                      <textarea 
+                          id="user-prompt" 
+                          class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="輸入您想測試的提示詞..."
+                      ></textarea>
+                      
+                      <!-- 參數設定 -->
+                      <div class="mt-4 grid grid-cols-2 gap-4">
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Temperature</label>
+                              <input 
+                                  type="range" 
+                                  id="temperature" 
+                                  min="0" 
+                                  max="2" 
+                                  step="0.1" 
+                                  value="0.7"
+                                  class="w-full"
+                              >
+                              <span id="temp-value" class="text-sm text-gray-600">0.7</span>
+                          </div>
+                          <div>
+                              <label class="block text-sm font-medium text-gray-700 mb-1">Max Tokens</label>
+                              <input 
+                                  type="number" 
+                                  id="max-tokens" 
+                                  value="1000"
+                                  min="50"
+                                  max="4000"
+                                  class="w-full px-3 py-1 border border-gray-300 rounded"
+                              >
+                          </div>
+                      </div>
+                      
+                      <button 
+                          id="send-btn"
+                          class="mt-4 w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-200 font-medium"
+                      >
+                          發送測試
+                      </button>
+                  </div>
+
+                  <!-- 回應區 -->
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                      <h2 class="text-xl font-semibold mb-4 text-gray-700">模型回應</h2>
+                      <div id="response-area" class="min-h-[200px] p-4 bg-gray-50 rounded-lg whitespace-pre-wrap">
+                          <p class="text-gray-500">等待發送提示詞...</p>
+                      </div>
+                      <div class="mt-4 flex justify-between items-center text-sm text-gray-600">
+                          <span id="response-time"></span>
+                          <span id="token-count"></span>
+                      </div>
+                  </div>
+              </div>
+
+              <!-- 右側：提示詞範本和歷史記錄 -->
+              <div class="space-y-6">
+                  <!-- 提示詞範本 -->
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                      <h2 class="text-xl font-semibold mb-4 text-gray-700">提示詞範本</h2>
+                      <div class="space-y-3">
+                          <div class="prompt-template p-3 bg-gray-50 rounded-lg" onclick="loadTemplate('summary')">
+                              <h3 class="font-medium text-gray-800">📝 文章摘要</h3>
+                              <p class="text-sm text-gray-600 mt-1">生成文章的精簡摘要</p>
+                          </div>
+                          <div class="prompt-template p-3 bg-gray-50 rounded-lg" onclick="loadTemplate('translate')">
+                              <h3 class="font-medium text-gray-800">🌐 翻譯助手</h3>
+                              <p class="text-sm text-gray-600 mt-1">專業的多語言翻譯</p>
+                          </div>
+                          <div class="prompt-template p-3 bg-gray-50 rounded-lg" onclick="loadTemplate('code')">
+                              <h3 class="font-medium text-gray-800">💻 程式碼生成</h3>
+                              <p class="text-sm text-gray-600 mt-1">根據需求生成程式碼</p>
+                          </div>
+                          <div class="prompt-template p-3 bg-gray-50 rounded-lg" onclick="loadTemplate('creative')">
+                              <h3 class="font-medium text-gray-800">🎨 創意寫作</h3>
+                              <p class="text-sm text-gray-600 mt-1">故事、詩歌等創意內容</p>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- 測試歷史 -->
+                  <div class="bg-white rounded-lg shadow-md p-6">
+                      <h2 class="text-xl font-semibold mb-4 text-gray-700">測試歷史</h2>
+                      <div id="history-list" class="space-y-2 max-h-96 overflow-y-auto">
+                          <p class="text-gray-500 text-sm">尚無測試記錄</p>
+                      </div>
+                      <button 
+                          onclick="clearHistory()"
+                          class="mt-4 w-full text-red-600 text-sm hover:text-red-700"
+                      >
+                          清除歷史記錄
+                      </button>
+                  </div>
+              </div>
+          </div>
+
+          <!-- 設定區 -->
+          <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-700">Ollama 連接設定</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Ollama API 位址</label>
+                      <input 
+                          type="text" 
+                          id="ollama-url" 
+                          value="http://localhost:11434"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                      >
+                  </div>
+                  <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">模型名稱</label>
+                      <input 
+                          type="text" 
+                          id="model-name" 
+                          value="gpt-oss:20b"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                      >
+                  </div>
+              </div>
+              <button 
+                  onclick="testConnection()"
+                  class="mt-4 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+              >
+                  測試連接
+              </button>
+          </div>
+      </div>
+
+      <script>
+          // 全域變數
+          let testHistory = [];
+          
+          // 初始化
+          document.addEventListener('DOMContentLoaded', function() {
+              // 載入歷史記錄
+              loadHistory();
+              
+              // 綁定事件
+              document.getElementById('temperature').addEventListener('input', function(e) {
+                  document.getElementById('temp-value').textContent = e.target.value;
+              });
+              
+              document.getElementById('send-btn').addEventListener('click', sendPrompt);
+              
+              // 測試連接
+              testConnection();
+          });
+          
+          // 提示詞範本
+          const templates = {
+              summary: {
+                  system: "你是一個專業的文章摘要助手。請用繁體中文生成簡潔、準確的摘要，保留關鍵信息。",
+                  user: "請為以下文章生成一個約100字的摘要：\n\n[在此貼上文章內容]"
+              },
+              translate: {
+                  system: "你是一個專業的翻譯員，精通多種語言。請提供準確、流暢的翻譯，並保持原文的語氣和風格。",
+                  user: "請將以下內容從英文翻譯成繁體中文：\n\n[在此輸入要翻譯的內容]"
+              },
+              code: {
+                  system: "你是一個資深的程式開發者。請生成清晰、高效、有良好註解的程式碼。",
+                  user: "請用Python編寫一個函數，功能是：[描述功能需求]"
+              },
+              creative: {
+                  system: "你是一個富有創意的作家。請發揮想像力，創作引人入勝的內容。",
+                  user: "請以「[主題]」為題，寫一個300字的短篇故事。"
+              }
+          };
+          
+          // 載入範本
+          function loadTemplate(type) {
+              const template = templates[type];
+              document.getElementById('system-prompt').value = template.system;
+              document.getElementById('user-prompt').value = template.user;
+          }
+          
+          // 發送提示詞
+          async function sendPrompt() {
+              const systemPrompt = document.getElementById('system-prompt').value;
+              const userPrompt = document.getElementById('user-prompt').value;
+              const temperature = parseFloat(document.getElementById('temperature').value);
+              const maxTokens = parseInt(document.getElementById('max-tokens').value);
+              const ollamaUrl = document.getElementById('ollama-url').value;
+              const modelName = document.getElementById('model-name').value;
+              
+              if (!userPrompt.trim()) {
+                  alert('請輸入使用者提示詞');
+                  return;
+              }
+              
+              const sendBtn = document.getElementById('send-btn');
+              const responseArea = document.getElementById('response-area');
+              
+              // 顯示載入狀態
+              sendBtn.disabled = true;
+              sendBtn.innerHTML = '處理中<span class="loading-spinner"></span>';
+              responseArea.innerHTML = '<p class="text-gray-500">正在生成回應...</p>';
+              
+              const startTime = Date.now();
+              
+              try {
+                  const response = await fetch(`${ollamaUrl}/api/generate`, {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                          model: modelName,
+                          prompt: `${systemPrompt}\n\nUser: ${userPrompt}\n\nAssistant:`,
+                          stream: false,
+                          options: {
+                              temperature: temperature,
+                              num_predict: maxTokens
+                          }
+                      })
+                  });
+                  
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  
+                  const data = await response.json();
+                  const endTime = Date.now();
+                  const responseTime = ((endTime - startTime) / 1000).toFixed(2);
+                  
+                  // 顯示回應
+                  responseArea.innerHTML = `<div class="text-gray-800">${escapeHtml(data.response)}</div>`;
+                  document.getElementById('response-time').textContent = `回應時間：${responseTime}秒`;
+                  document.getElementById('token-count').textContent = `Token數：${data.eval_count || 'N/A'}`;
+                  
+                  // 儲存到歷史記錄
+                  addToHistory({
+                      timestamp: new Date().toLocaleString('zh-TW'),
+                      systemPrompt: systemPrompt,
+                      userPrompt: userPrompt,
+                      response: data.response,
+                      temperature: temperature,
+                      responseTime: responseTime
+                  });
+                  
+              } catch (error) {
+                  console.error('Error:', error);
+                  responseArea.innerHTML = `<p class="text-red-600">錯誤：${error.message}</p>`;
+              } finally {
+                  sendBtn.disabled = false;
+                  sendBtn.innerHTML = '發送測試';
+              }
+          }
+          
+          // 測試連接
+          async function testConnection() {
+              const statusElement = document.getElementById('connection-status');
+              const ollamaUrl = document.getElementById('ollama-url').value;
+              
+              statusElement.innerHTML = '⏳ 連接狀態：檢查中...';
+              statusElement.className = 'px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm';
+              
+              try {
+                  const response = await fetch(`${ollamaUrl}/api/tags`);
+                  if (response.ok) {
+                      statusElement.innerHTML = '✅ 連接狀態：已連接';
+                      statusElement.className = 'px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm';
+                  } else {
+                      throw new Error('連接失敗');
+                  }
+              } catch (error) {
+                  statusElement.innerHTML = '❌ 連接狀態：未連接';
+                  statusElement.className = 'px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm';
+              }
+          }
+          
+          // 歷史記錄功能
+          function addToHistory(item) {
+              testHistory.unshift(item);
+              if (testHistory.length > 10) {
+                  testHistory = testHistory.slice(0, 10);
+              }
+              localStorage.setItem('promptTestHistory', JSON.stringify(testHistory));
+              updateHistoryDisplay();
+          }
+          
+          function loadHistory() {
+              const saved = localStorage.getItem('promptTestHistory');
+              if (saved) {
+                  testHistory = JSON.parse(saved);
+                  updateHistoryDisplay();
+              }
+          }
+          
+          function updateHistoryDisplay() {
+              const historyList = document.getElementById('history-list');
+              if (testHistory.length === 0) {
+                  historyList.innerHTML = '<p class="text-gray-500 text-sm">尚無測試記錄</p>';
+                  return;
+              }
+              
+              historyList.innerHTML = testHistory.map((item, index) => `
+                  <div class="p-3 bg-gray-50 rounded cursor-pointer hover:bg-gray-100" onclick="loadHistoryItem(${index})">
+                      <p class="text-sm font-medium text-gray-800">${item.userPrompt.substring(0, 50)}...</p>
+                      <p class="text-xs text-gray-500 mt-1">${item.timestamp} | ${item.responseTime}秒</p>
+                  </div>
+              `).join('');
+          }
+          
+          function loadHistoryItem(index) {
+              const item = testHistory[index];
+              document.getElementById('system-prompt').value = item.systemPrompt;
+              document.getElementById('user-prompt').value = item.userPrompt;
+              document.getElementById('temperature').value = item.temperature;
+              document.getElementById('temp-value').textContent = item.temperature;
+              document.getElementById('response-area').innerHTML = `<div class="text-gray-800">${escapeHtml(item.response)}</div>`;
+          }
+          
+          function clearHistory() {
+              if (confirm('確定要清除所有歷史記錄嗎？')) {
+                  testHistory = [];
+                  localStorage.removeItem('promptTestHistory');
+                  updateHistoryDisplay();
+              }
+          }
+          
+          // 工具函數
+          function escapeHtml(text) {
+              const map = {
+                  '&': '&amp;',
+                  '<': '&lt;',
+                  '>': '&gt;',
+                  '"': '&quot;',
+                  "'": '&#039;'
+              };
+              return text.replace(/[&<>"']/g, m => map[m]);
+          }
+      </script>
+  </body>
+  </html>
