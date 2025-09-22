@@ -1,0 +1,20 @@
+Summarizing and Analysis:
+"Summarize the main arguments in this article/abstract:"
+"Analyze the strengths and weaknesses of this methodology:"
+"Compare and contrast [theory A] and [theory B] in the context of [field]:"
+"Identify the key findings and implications of this research paper:"
+"Describe the theoretical framework of this study and how it relates to the findings:"
+
+Research Questions and Gaps:
+"List potential research questions related to [topic]:"
+"Identify gaps in the literature on [topic]:"
+"Generate a list of research hypotheses related to [topic]:"
+"Identify potential areas for future research in the context of this article/abstract:"
+"Suggest novel applications of [theory/concept] within [field]:"
+
+Methodology and Techniques:
+"What are the limitations of using [statistical method] in [research context]?"
+"Create a recipie for the methods used in this [paper/thesis]"
+"Suggest interdisciplinary approaches to [research question/problem]:"
+"Explain how [qualitative/quantitative] research methods can be used to address [research question]:"
+"Describe the advantages of using a mixed-methods approach for studying [topic]:"
