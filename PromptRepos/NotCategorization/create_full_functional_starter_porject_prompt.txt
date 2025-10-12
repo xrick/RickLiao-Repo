@@ -1,0 +1,17 @@
+Please Create a complete functional starter project for satify the followng requirements: 
+
+This project is a "generating  ppt file for teaching subjects".
+
+the backend uses **presenton APIs as our ppt generation engine**, and use docker install in **localhost**
+
+the frontend, please use the uploaded main.html, you must read and analyze it step by step.
+
+from the fronted design,  you must design a backend middle layer which betweent frontend and presenton apis, this layer can increase our system flexity and scale in the future.
+
+next, you need to generate a check list for accomplishing the starter project
+
+we use ollama and the model is gpt-oss:20, and image provider is pexels
+
+my key is sk-presenton-2a1d7db68395f4aaedbca4eb3a82b5c8797c26e3187ea4c2ab5079693e6b9822f576ac900b00e02bc63f44eefb5111db45decec946e95ad482cf73655f2c356e
+
+if you need more information, you should ask me without hesitation. 
