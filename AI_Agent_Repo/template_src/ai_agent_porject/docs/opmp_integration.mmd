@@ -1,0 +1,24 @@
+flowchart TD
+
+
+U[User Query]
+--> P[PromptService]
+--> LLM[LLM Stream Output]
+--> OPMP[OPMP Engine]
+--> Renderer[Markdown Renderer]
+--> UI[OPMP Frontend]
+
+
+subgraph Core Layer
+OPMP
+end
+subgraph Presentation Layer
+Renderer
+end
+subgraph User Interface
+UI
+end
+
+
+LLM -->|tokens| OPMP
+Renderer -->|progressive markdown| UI

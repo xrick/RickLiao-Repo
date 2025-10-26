@@ -1,0 +1,8 @@
+"""Markdown template for comparing multiple notebooks."""
+
+
+| Model | CPU | GPU | RAM | Price |
+|-------|-----|-----|-----|-------|
+{% for item in products %}
+| {{ item.name }} | {{ item.cpu }} | {{ item.gpu }} | {{ item.ram }} | {{ item.price }} |
+{% endfor %}
