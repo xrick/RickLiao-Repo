@@ -28,3 +28,6 @@ $ curl http://localhost:8000/health
 source docaienv/bin/activate && nohup python main.py > logs/server.log 2>&1 &
 
 ====================================================
+curl -s -X GET "http://localhost:8000/api/v1/files?limit=10" -H "X-User-ID: 550e8400-e29b-41d4-a716-446655440000" | python -m json.tool
+
+====================================================
