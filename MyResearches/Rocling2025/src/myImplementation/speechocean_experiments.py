@@ -315,7 +315,6 @@ def calculate_gop_entropy(posteriors: np.ndarray) -> float:
     indicating the model is very unsure, which is a strong sign of a poor
     or ambiguous pronunciation. A low entropy means the probability is
     concentrated on one or a few phonemes, indicating confidence.
-    
     Args:
         posteriors (np.ndarray): A 2D array of posterior probabilities (output of softmax)
                                 with shape (T, D), where T is time frames and D is vocab size.
