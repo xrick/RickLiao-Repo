@@ -1,0 +1,141 @@
+refData/prompt/skill_demo_prompts_note.txt
+You are a professional and experienced native languages translater.
+Please translate this document like a professional and experienced native languages translater
+
+
+/sc:implement 
+```
+Demo 準備
+週六上午: 實作 UI 切換和準備 Demo Skills
+週六下午: 建立簡化的 API 端點
+週日上午: 前端整合
+週日下午: 測試和視覺優化
+關鍵記住
+Demo First: 穩定運行比完美實現重要
+Level 1 並行搜尋: 最簡單可靠，足夠 Demo
+3個預設Skills: AI研究、Python文檔、商業報告
+To accomplish these tasks clearly, comletely, step-by-step, and with a well-structured organization like a professional and experienced RAG Expert
+``` 
+
+/sc:implement --magic -c7 --seq
+``` 
+請實作"六法全書-民法", 資料位於："refData/rawdata/law/民法/" 這個skill
+```
+
+/sc:explain 
+```
+如果我要新增一份或多份資料到已經存在的skill，要如何處理
+``` 
+
+/sc:implement  --magic --c7 --seq 
+```
+請看這張圖：
+1. 被選擇的skill，配色顯得模糊, 而且輸入框怎麼會是跑到最下面: refData/test/skilltest/wrong_design_01.png
+2. 我要呈現的UI: refData/design/skill main page.jpeg
+    2.1. 所有的skill會放置在右邊的sidebar, 並且會以第二層樹狀結構展現，類似：
+                +Skill Tree (未展開)
+                ---
+                －Skill Tree( 展開)
+                           |---LLM Skill
+                           |---六法全書-民法
+                           |---六法全書-刑法
+                           |__Pyhon Doc
+             ps. 可以加入適合的icon讓畫面更生動
+      2.2. 使用者輸入框放至下方，輸入框的設計類似： refData/design/skill_input_field_design.png
+3. 不要再有' http://localhost:8000/skill-demo '，進入' http://localhost:8000/ '
+4. 原本的預設路徑，設成 ' http://localhost:8000/SinglePDFQuery '
+```
+
+
+/sc:brainstorm 
+1. 全部重建
+把所有與skill有關的faiss資料全部清空
+把所有與skill有關的sqlite資料全部清空
+六法全書-刑法:所有pdf files在 " refData/rawdata/law/刑法 " 這個目錄下
+六法全書-民法:所有pdf files在 " refData/rawdata/law/民法 " 這個目錄下
+LLM-所有pdf files在 " refData/rawdata/LLM " 這個目錄下
+2. 嚴格禁止系統自作主張，自動改變skill的名稱
+**非常重要**，使用建立skill時採用的名稱，就用使用者輸入或給予的名稱，**嚴格禁止系統改變名稱**
+
+
+
+/sc:brainstorm 
+1. To write a shell script which completely delete 'skill_chunk_metadata table', ' skill_document_mapping table ', '  skill_metadata table ' and ' skill_overviews ' of skill_metadata.db. **Do Not** modify 'embedding_models table'
+2. To create a json file to describe the source pdf files and embeddings built from these pdf files. For example:
+    {
+        Skill:
+        {
+            skill_name:"LLM",
+            sources:[
+                "refData/rawdata/LLM/Build_a_Large_Language_Model_From_Scratch_manning_2024.pdf",
+                "refData/rawdata/LLM/Decoding_Large_Language_Models_packt_2024.pdf",
+                "Hands_On_Large_Language_Models_oreilly_2024",
+                "refData/rawdata/LLM/Large_Language_Models_Projects_apress_2024.pdf",
+                "LLM_Engineers_Handbook_packt_2024"
+            ]
+        }
+        Instant_attachment:[]
+    }
+    we need to separate the source pdf files and chunk and embedding codes. 
+3. To write a shell script which rebuild the whole skills data of  'skill_chunk_metadata table', ' skill_document_mapping table ', '  skill_metadata table ' and ' skill_overviews ' of skill_metadata.db.
+
+To accomplish these tasks clearly, comletely, step-by-step, and with a well-structured organization like a professional and experienced RAG Expert
+
+---
+
+1. 多 Skill 支援：需要支援多個 skills
+2. Instant_attachment 的具體用途是記錄臨時要加入的pdf files的清單，大約加了5~10後，需要做整個skill的rebuild, 以避免資料碎片化，影響效能及準確度。
+3. 混合型，如第二點：臨時可以加入的pdf files的清單，大約加了5~10後，需要做整個skill的rebuild, 以避免資料碎片化，影響效能及準確度。
+4. 是的，而且要加入一個介面，在主畫面，用另一個table來做組成 skills 的pdf的管理
+
+---
+
+Update Todos
+
+Explore existing skill database schema and services
+
+Create clean_skill_tables.sh script
+
+Design and create skill_config.json structure
+
+Create rebuild_skills.sh wrapper script
+
+Refactor rebuild_skills.py to use JSON config
+
+Create API endpoints for skill PDF management
+
+Design and implement Skill PDF Management UI
+
+Test complete workflow
+
+**請注意，一定要使用BGE-M3**
+
+---
+
+/sc:implement --magic --c7 --seq
+我發現幾個UI上須要修改的地方：
+1. 'refData/ui_improve/看不懂一頁_1.png' ，也就是" Instant Attachments "這一頁根本是多餘的，完全可以整合到' refData/ui_improve/mainpage.png ' 這個管理主介面。
+2. 如同image: 'refData/ui_improve/新增skill的檔案_用檔案選取2.png' 中的新增ADD PDF Source，在PDF Path，要改成檔案選擇視，怎麼會叫使用者自己輸入路徑呢！
+3. 先看image: refData/ui_improve/skill-sidebar.png
+    - 刪除'  Instant Attachments ' 這個項目，因為與skills管理主面結合。
+    - 請回答 ' Rebuild Skills ' 是針對單一選擇的skill進行所有pdf文件的 " 重新組合pdf "-->建立embeddings. 還是紤有的skills 都要重新訓練？如果是重新建立所有的skills，會非常浪費資源，合理的是只重新訓練
+
+
+---
+
+/sc:improve --magic -C7 --seq
+1. 之前我提過加入新的pdf要讓使用選取, 可是你他媽的設計什鳥東西，看image: " refData/ui_improve/錯誤的skill的檔案選取.png "，我需要的： refData/ui_improve/正確的skill的檔案選取.png.
+2. 在sidebar你加入了一個"File Mode" 模式，但到了File Mode 主頁，卻沒有明顯、清楚的「回到Skill模式的圖示、返回箭頭、按鈕。這是要強迫使者直接用browser 的回到上頁的按鈕，這很蠢，你真是夠笨的。
+
+---
+
+/sc:improve --magic -C7 --seq
+1. 之前我提過加入新的pdf要讓使用選取, 可是你他媽的設計什鳥東西，看image: " refData/ui_improve/錯誤的skill的檔案選取.png "，我需要的： refData/ui_improve/正確的skill的檔案選取.png.
+2. 在sidebar你加入了一個"File Mode" 模式，但到了File Mode 主頁，卻沒有明顯、清楚的「回到Skill模式的圖示、返回箭頭、按鈕。這是要強迫使者直接用browser 的回到上頁的按鈕，這很蠢，你真是夠笨的。
+3. 另外你還未說明" Rebuild Logs " 的作用是什麼？
+4. 在主頁的最左方是complete rebuild a refresh skill的 threshold 我該在哪裏調整？
+5. 目前我們是否還是有到.env 及 api/core/config，若有，是哪些部份，而skills本身是否有自己的config檔？
+
+---
+
+

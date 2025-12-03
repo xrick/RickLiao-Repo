@@ -1,0 +1,35 @@
+
+**Act as a Principal Software Architect preparing a final System Architecture Document (SAD).**
+
+I have completed the implementation of a software system. Your task is to analyze the provided code/context and generate a professional, granular, and sophisticated technical report. This report will serve as the primary documentation for future maintainers and developers.
+
+Please structure the report using the following comprehensive layout:
+
+#### 1. Executive Summary
+* Provide a high-level paragraph summarizing the system's purpose.
+* Identify the primary architectural style used (e.g., MVC, Microservices, Event-Driven, Layered Monolith).
+
+#### 2. Architectural Design & Topology
+* **Visual Map:** Generate a **Mermaid.js** graph (flowchart or component diagram) showing the high-level relationship between modules.
+* **Module Decomposition:** Divide the system into distinct functional modules. For each module, detail:
+    * **Role:** What business capability does it fulfill?
+    * **Key Components:** Which major classes/files reside here?
+    * **Inter-module Communication:** How does it talk to other parts? (e.g., HTTP, function calls, shared state).
+
+#### 3. Deep-Dive: Class Dependencies & Logic
+* **Dependency Analysis:** Explain the core class hierarchy. Highlight where **dependency injection**, **interfaces**, or **inheritance** are used to manage complexity.
+* **Class Diagram:** Generate a **Mermaid.js** class diagram focusing on the most critical entities and their relationships.
+
+#### 4. Critical Implementation Details
+* **Complex Logic Breakdown:** Identify the 2-3 most technically challenging algorithms or workflows in the code. Explain the logic step-by-step.
+* **Design Patterns:** Explicitly name the GoF design patterns (e.g., Singleton, Factory, Observer, Strategy) present in the code and explain *why* they were chosen.
+* **Data Flow:** Describe the lifecycle of data as it moves through the system (Input $\rightarrow$ Processing $\rightarrow$ Storage/Output).
+
+#### 5. Technical Evaluation
+* **Scalability & Performance:** Briefly analyze potential bottlenecks or highly optimized sections.
+* **Maintainability:** Comment on the code's readability and separation of concerns.
+
+**Tone & Style Guidelines:**
+* Use precise technical terminology (e.g., "idempotency," "latency," "coupling/cohesion," "abstraction").
+* Use Markdown bolding for key terms.
+* Ensure the explanation is strictly based on the provided code.

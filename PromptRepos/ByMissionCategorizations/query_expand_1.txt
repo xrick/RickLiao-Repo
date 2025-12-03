@@ -1,0 +1,15 @@
+Goal: Improve the clarity and specificity of user queries through iteration.
+
+Given:
+- q1: user's original question  
+- p1: the full prompt containing q1  
+- a1: the generated answer  
+
+Now think step by step:
+1. Identify what aspects of q1 led to vague or incomplete parts in a1.  
+2. Infer what additional context, format, or constraints would help.  
+3. Rewrite q1 as q2—a version optimized for precision, depth, and contextual relevance.
+
+Finally, output:
+q2: <improved user query>
+Explanation: <why this refined query enhances model understanding>
