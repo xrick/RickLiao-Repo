@@ -1,0 +1,475 @@
+%
+% File rocling2025.tex
+%
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{rocling2025}
+\usepackage{times}
+\usepackage{latexsym}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% This is font setting for Chinese language 
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setCJKmonofont{AR PL UKai TW}
+\setCJKmainfont{AR PL UKai TW}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+
+%\roclingfinalcopy % Uncomment this line for the final submission
+%\def\roclingpaperid{***} %  Enter the ROCLING Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+\title{Instructions for ROCLING 2025 Proceedings \\ (中文稿件需提供中英文題目)}
+
+\author{First Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\\And
+  Second Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+% This is not necessary if English manuscript
+\begin{abstractChinese}
+本文件包含為ROCLING 2025會議錄編寫稿件的說明。此模板由ACL 投稿模板修改而得，其中該文件本身符合其會議格式的規範，因此這將是您的原稿應呈現的示例。
+這些說明同時適用於提交審查的論文和已接受論文的最終版本，而作者必須遵守本文件中所有指示。
+中文稿件必須同時撰寫中英文標題，中英文摘要和中英文關鍵詞；對於英文稿件，請刪除所有中文標題，中文摘要和中文關鍵字。
+另外，我們非常建議在\href{https://www.overleaf.com/}{\textbf{Overleaf}} 線上 \LaTeX{}  編輯器編譯 .tex 檔案。
+\end{abstractChinese}
+
+\begin{abstract}
+This document contains the instructions for preparing a manuscript for the proceedings of ROCLING 2025. This template is modified by ACL template.
+The document itself conforms to its own specifications, and is therefore an example of what your manuscript should look like. 
+These instructions should be used for both papers submitted for review and for final versions of accepted papers. 
+Authors are asked to conform to all the directions reported in this document. 
+Chinese manuscript must to write the English title, abstract, and keywords; For English manuscript, remove all Chinese title, abstract, and keywords.
+In addition, we very recommend you to use the \href{https://www.overleaf.com/}{\textbf{Overleaf}} online \LaTeX{}  editor to compile .tex file.
+\end{abstract}
+
+% This is not necessary if English manuscript
+\begin{keywordsChinese}
+關鍵字1、關鍵字2
+\end{keywordsChinese}
+
+\begin{keywords}
+Keyword 1, Keyword 2
+\end{keywords}
+
+\section{Introduction}
+
+The following instructions are directed to authors of papers submitted to ROCLING  2025 or accepted for publication in its proceedings.
+All authors are required to adhere to these specifications.
+Authors are required to provide a Portable Document Format (PDF) version of their papers.
+\textbf{The proceedings are designed for printing on A4 paper.}
+
+
+\section{Electronically-available resources}
+
+ROCLING provides this description and accompanying style files at ROCLING official website. We strongly recommend the use of these style files, which have been appropriately tailored for the ROCLING 2025 proceedings.
+
+\paragraph{\LaTeX-specific details:}
+The templates include the \LaTeX2e{} source (\texttt{\small rocling2025.tex}),
+the \LaTeX2e{} style file used to format it (\texttt{\small rocling2025.sty}),
+an ACL bibliography style (\texttt{\small acl\_natbib.bst}), and
+an example bibliography (\texttt{\small rocling2025.bib}).
+
+
+\section{Length of Submission}
+\label{sec:length}
+
+Papers may consist of 4-8 pages of content plus unlimited pages for references.
+Upon acceptance, final versions of long papers will be given one additional page -- up to nine (9) pages of content plus unlimited pages for references -- so that reviewers' comments can be taken into account.
+
+All illustrations and tables that are part of the main text must be accommodated within these page limits, observing the formatting instructions given in the present document.
+Papers that do not conform to the specified length and formatting requirements are subject to be rejected without review.
+As always, the respective call for papers is the authoritative source.
+
+
+\section{Anonymity}
+As reviewing will be double-blind, papers submitted for review should not include any author information (such as names or affiliations). Furthermore, self-references that reveal the author's identity, \emph{e.g.},
+\begin{quote}
+We previously showed \citep{Gusfield:97} \ldots
+\end{quote}
+should be avoided. Instead, use citations such as 
+\begin{quote}
+\citet{Gusfield:97} previously showed\ldots
+\end{quote}
+Please do not use anonymous citations and do not include acknowledgements.
+\textbf{Papers that do not conform to these requirements may be rejected without review.}
+
+Any preliminary non-archival versions of submitted papers should be listed in the submission form but not in the review version of the paper.
+Reviewers are generally aware that authors may present preliminary versions of their work in other venues, but will not be provided the list of previous presentations from the submission form.
+
+Once a paper has been accepted to the conference, the camera-ready version of the paper should include the author's names and affiliations, and is allowed to use self-references.
+
+\paragraph{\LaTeX-specific details:}
+For an anonymized submission, ensure that {\small\verb|\roclingfinalcopy|} at the top of this document is commented out
+For a camera-ready submission, ensure that {\small\verb|\roclingfinalcopy|} at the top of this document is not commented out.
+
+
+\section{Formatting Instructions}
+
+Manuscripts must be in two-column format.
+Exceptions to the two-column format include the title, authors' names and complete addresses, which must be centered at the top of the first page, and any full-width figures or tables (see the guidelines in Section~\ref{ssec:graphics}).
+\textbf{Type single-spaced.}
+Start all pages directly under the top margin.
+The manuscript should be printed single-sided and its length should not exceed the maximum page limit described in Section~\ref{sec:length}.
+Pages should be numbered in the version submitted for review, but \textbf{pages should not be numbered in the camera-ready version}.
+
+\paragraph{\LaTeX-specific details:}
+The style files will generate page numbers when {\small\verb|\aclfinalcopy|} is commented out, and remove them otherwise.
+
+
+\subsection{File Format}
+\label{sect:pdf}
+
+For the production of the electronic manuscript you must use Adobe's Portable Document Format (PDF).
+Please make sure that your PDF file includes all the necessary fonts (especially tree diagrams, symbols, and fonts with Asian characters).
+When you print or create the PDF file, there is usually an option in your printer setup to include none, all or just non-standard fonts.
+Please make sure that you select the option of including ALL the fonts.
+\textbf{Before sending it, test your PDF by printing it from a computer different from the one where it was created.}
+Moreover, some word processors may generate very large PDF files, where each page is rendered as an image.
+Such images may reproduce poorly.
+In this case, try alternative ways to obtain the PDF.
+One way on some systems is to install a driver for a postscript printer, send your document to the printer specifying ``Output to a file'', then convert the file to PDF.
+
+It is of utmost importance to specify the \textbf{A4 format} (21 cm x 29.7 cm) when formatting the paper.
+Print-outs of the PDF file on A4 paper should be identical to the hardcopy version.
+If you cannot meet the above requirements about the production of your electronic submission, please contact the publication chairs as soon as possible.
+
+\paragraph{\LaTeX-specific details:}
+PDF files are usually produced from \LaTeX{} using the \texttt{\small pdflatex} command.
+If your version of \LaTeX{} produces Postscript files, \texttt{\small ps2pdf} or \texttt{\small dvipdf} can convert these to PDF.
+To ensure A4 format in \LaTeX, use the command {\small\verb|\special{papersize=210mm,297mm}|}
+in the \LaTeX{} preamble (below the {\small\verb|\usepackage|} commands) and use \texttt{\small dvipdf} and/or \texttt{\small pdflatex}; or specify \texttt{\small -t a4} when working with \texttt{\small dvips}.
+
+\subsection{Layout}
+\label{ssec:layout}
+
+Format manuscripts two columns to a page, in the manner these
+instructions are formatted.
+The exact dimensions for a page on A4 paper are:
+
+\begin{itemize}
+\item Left and right margins: 2.5 cm
+\item Top margin: 2.5 cm
+\item Bottom margin: 2.5 cm
+\item Column width: 7.7 cm
+\item Column height: 24.7 cm
+\item Gap between columns: 0.6 cm
+\end{itemize}
+
+\noindent Papers should not be submitted on any other paper size.
+If you cannot meet the above requirements about the production of your electronic submission, please contact the publication chairs above as soon as possible.
+
+\subsection{Fonts}
+
+For reasons of uniformity, Adobe's \textbf{Times Roman} font should be used.
+If Times Roman is unavailable, you may use Times New Roman or \textbf{Computer Modern Roman}. 
+In the Chinese manuscript, 標楷題 font should be used.
+
+Table~\ref{font-table} specifies what font sizes and styles must be used for each type of text in the manuscript.
+
+\begin{table}
+\centering
+\begin{tabular}{lrl}
+\hline \textbf{Type of Text} & \textbf{Font Size} & \textbf{Style} \\ \hline
+paper title & 15 pt & bold \\
+author names & 12 pt & bold \\
+author affiliation & 12 pt & \\
+the word ``Abstract'' & 12 pt & bold \\
+section titles & 12 pt & bold \\
+subsection titles & 11 pt & bold \\
+document text & 11 pt  &\\
+captions & 10 pt & \\
+abstract text & 10 pt & \\
+keyword text & 10 pt & \\
+bibliography & 10 pt & \\
+footnotes & 9 pt & \\
+\hline
+\end{tabular}
+\caption{\label{font-table} Font guide. }
+\end{table}
+
+\paragraph{\LaTeX-specific details:}
+To use Times Roman in \LaTeX2e{}, put the following in the preamble:
+\begin{quote}
+\small
+\begin{verbatim}
+\usepackage{times}
+\usepackage{latexsym}
+\end{verbatim}
+\end{quote}
+To use 標楷體 in \textbf{Overleaf} online \LaTeX editor for Chinese manuscript, put the following in the preamble:
+\begin{quote}
+\small
+\begin{verbatim}
+\usepackage{xeCJK}
+\setCJKmainfont{AR PL UKai TW}
+\end{verbatim}
+\end{quote}
+
+\subsection{Ruler}
+A printed ruler (line numbers in the left and right margins of the article) should be presented in the version submitted for review, so that reviewers may comment on particular lines in the paper without circumlocution.
+The presence or absence of the ruler should not change the appearance of any other content on the page.
+The camera ready copy should not contain a ruler.
+
+\paragraph{Reviewers:}
+note that the ruler measurements may not align well with lines in the paper -- this turns out to be very difficult to do well when the paper contains many figures and equations, and, when done, looks ugly.
+In most cases one would expect that the approximate location will be adequate, although you can also use fractional references (\emph{e.g.}, this line ends at mark $268.5$).
+
+\paragraph{\LaTeX-specific details:}
+The style files will generate the ruler when {\small\verb|\roclingfinalcopy|} is commented out, and remove it otherwise.
+
+\subsection{Title and Authors}
+\label{ssec:title-authors}
+
+Center the title, author's name(s) and affiliation(s) across both columns.
+Do not use footnotes for affiliations.
+Place the title centered at the top of the first page, in a 15-point bold font.
+Long titles should be typed on two lines without a blank line intervening.
+Put the title 2.5 cm from the top of the page, followed by a blank line, then the author's names(s), and the affiliation on the following line.
+Do not use only initials for given names (middle initials are allowed).
+Do not format surnames in all capitals (\emph{e.g.}, use ``Mitchell'' not ``MITCHELL'').
+Do not format title and section headings in all capitals except for proper names (such as ``BLEU'') that are
+conventionally in all capitals.
+The affiliation should contain the author's complete address, and if possible, an electronic mail address.
+
+The title, author names and addresses should be completely identical to those entered to the electronical paper submission website in order to maintain the consistency of author information among all publications of the conference.
+If they are different, the publication chairs may resolve the difference without consulting with you; so it is in your own interest to double-check that the information is consistent.
+
+Start the body of the first page 7.5 cm from the top of the page.
+\textbf{Even in the anonymous version of the paper, you should maintain space for names and addresses so that they will fit in the final (accepted) version.}
+
+
+\subsection{Abstract}
+Use two-column format when you begin the abstract.
+Type the abstract at the beginning of the first column.
+The width of the abstract text should be smaller than the
+width of the columns for the text in the body of the paper by 0.6 cm on each side.
+Center the word \textbf{Abstract} in a 12 point bold font above the body of the abstract.
+The abstract should be a concise summary of the general thesis and conclusions of the paper.
+It should be no longer than 200 words.
+The abstract text should be in 10 point font.
+
+In addition, for the Chinese manuscript, center the word 摘要 with the same format with English word Abstract, and the format of abstract is also the same to English abstract.
+
+\subsection{Text}
+Begin typing the main body of the text immediately after the abstract, observing the two-column format as shown in the present document.
+
+Indent 0.4 cm when starting a new paragraph.
+
+\subsection{Sections}
+
+Format section and subsection headings in the style shown on the present document.
+Use numbered sections (Arabic numerals) to facilitate cross references.
+Number subsections with the section number and the subsection number separated by a dot, in Arabic numerals.
+
+\subsection{Footnotes}
+Put footnotes at the bottom of the page and use 9 point font.
+They may be numbered or referred to by asterisks or other symbols.\footnote{This is how a footnote should appear.}
+Footnotes should be separated from the text by a line.\footnote{Note the line separating the footnotes from the text.}
+
+\subsection{Graphics}
+\label{ssec:graphics}
+
+Place figures, tables, and photographs in the paper near where they are first discussed, rather than at the end, if possible.
+Wide illustrations may run across both columns.
+Color is allowed, but adhere to Section~\ref{ssec:accessibility}'s guidelines on accessibility.
+
+\paragraph{Captions:}
+Provide a caption for every illustration; number each one sequentially in the form: English manuscript uses
+\begin{itemize}
+\item ``Figure 1. Caption of the Figure.''
+\item ``Table 1. Caption of the Table.''.
+\end{itemize}
+
+\noindent And Chinese manuscript uses
+\begin{itemize}
+\item ``圖1. Caption of the Figure.''
+\item ``表1. Caption of the Table.''.
+\end{itemize}
+
+
+Type the captions of the figures and tables below the body, using 10 point text.
+Captions should be placed below illustrations.
+Captions that are one line are centered (see Table~\ref{font-table}).
+Captions longer than one line are left-aligned (see Table~\ref{tab:accents}).
+
+\begin{table}
+\centering
+\begin{tabular}{lc}
+\hline
+\textbf{Command} & \textbf{Output}\\
+\hline
+\verb|{\"a}| & {\"a} \\
+\verb|{\^e}| & {\^e} \\
+\verb|{\`i}| & {\`i} \\ 
+\verb|{\.I}| & {\.I} \\ 
+\verb|{\o}| & {\o} \\
+\verb|{\'u}| & {\'u}  \\ 
+\verb|{\aa}| & {\aa}  \\\hline
+\end{tabular}
+\begin{tabular}{lc}
+\hline
+\textbf{Command} & \textbf{Output}\\
+\hline
+\verb|{\c c}| & {\c c} \\ 
+\verb|{\u g}| & {\u g} \\ 
+\verb|{\l}| & {\l} \\ 
+\verb|{\~n}| & {\~n} \\ 
+\verb|{\H o}| & {\H o} \\ 
+\verb|{\v r}| & {\v r} \\ 
+\verb|{\ss}| & {\ss} \\
+\hline
+\end{tabular}
+\caption{Example commands for accented characters, to be used in, \emph{e.g.}, \BibTeX\ names.}\label{tab:accents}
+\end{table}
+
+\paragraph{\LaTeX-specific details:}
+The style files are compatible with the caption and subcaption packages; do not add optional arguments.
+\textbf{Do not override the default caption sizes.}
+
+
+\subsection{Hyperlinks}
+Within-document and external hyperlinks are indicated with Dark Blue text, Color Hex \#000099.
+
+\subsection{Citations}
+Citations within the text appear in parentheses as~\citep{Gusfield:97} or, if the author's name appears in the text itself, as \citet{Gusfield:97}.
+Append lowercase letters to the year in cases of ambiguities.  
+Treat double authors as in~\citep{Aho:72}, but write as in~\citep{Chandra:81} when more than two authors are involved. Collapse multiple citations as in~\citep{Gusfield:97,Aho:72}. 
+
+Refrain from using full citations as sentence constituents.
+Instead of
+\begin{quote}
+  ``\citep{Gusfield:97} showed that ...''
+\end{quote}
+write
+\begin{quote}
+``\citet{Gusfield:97} showed that ...''
+\end{quote}
+
+\begin{table*}
+\centering
+\begin{tabular}{lll}
+\hline
+\textbf{Output} & \textbf{natbib command} & \textbf{Old ACL-style command}\\
+\hline
+\citep{Gusfield:97} & \small\verb|\citep| & \small\verb|\cite| \\
+\citealp{Gusfield:97} & \small\verb|\citealp| & no equivalent \\
+\citet{Gusfield:97} & \small\verb|\citet| & \small\verb|\newcite| \\
+\citeyearpar{Gusfield:97} & \small\verb|\citeyearpar| & \small\verb|\shortcite| \\
+\hline
+\end{tabular}
+\caption{\label{citation-guide}
+Citation commands supported by the style file.
+The style is based on the natbib package and supports all natbib citation commands.
+It also supports commands defined in previous ACL style files for compatibility.
+}
+\end{table*}
+
+\paragraph{\LaTeX-specific details:}
+Table~\ref{citation-guide} shows the syntax supported by the style files.
+We encourage you to use the natbib styles.
+You can use the command {\small\verb|\citet|} (cite in text) to get ``author (year)'' citations as in \citet{Gusfield:97}.
+You can use the command {\small\verb|\citep|} (cite in parentheses) to get ``(author, year)'' citations as in \citep{Gusfield:97}.
+You can use the command {\small\verb|\citealp|} (alternative cite without  parentheses) to get ``author year'' citations (which is useful for  using citations within parentheses, as in \citealp{Gusfield:97}).
+
+
+\subsection{References}
+Gather the full set of references together under the heading \textbf{References}; place the section before any Appendices. 
+Arrange the references alphabetically by first author, rather than by order of occurrence in the text.
+
+Provide as complete a citation as possible, using a consistent format, such as the one for \emph{Computational Linguistics\/} or the one in the  \emph{Publication Manual of the American 
+Psychological Association\/}~\citep{APA:83}.
+Use full names for authors, not just initials.
+
+Submissions should accurately reference prior and related work, including code and data.
+If a piece of prior work appeared in multiple venues, the version that appeared in a refereed, archival venue should be referenced.
+If multiple versions of a piece of prior work exist, the one used by the authors should be referenced.
+Authors should not rely on automated citation indices to provide accurate references for prior and related work.
+
+The following text cites various types of articles so that the references section of the present document will include them.
+\begin{itemize}
+\item Example article in journal: \citep{Chandra:81}.
+\item Example article in proceedings, with location: \citep{goodman-etal-2016-noise}.
+\item Example article in proceedings, without location: \citep{andrew2007scalable}.
+\item Example arxiv paper: \citep{rasooli-tetrault-2015}. 
+\end{itemize}
+
+
+\paragraph{\LaTeX-specific details:}
+The \LaTeX{} and Bib\TeX{} style files provided roughly follow the American Psychological Association format.
+If your own bib file is named \texttt{\small rocling2025.bib}, then placing the following before any appendices in your \LaTeX{}  file will generate the references section for you:
+\begin{quote}\small
+\verb|\bibliographystyle{acl_natbib}|\\
+\verb|\bibliography{rocling2025}|
+\end{quote}
+
+
+\subsection{Digital Object Identifiers}
+All camera-ready references are required to contain the appropriate DOIs (or as a second resort, the hyperlinked ACL Anthology Identifier) to all cited works.
+Appropriate records should be found for most materials in the current ACL Anthology at \url{http://aclanthology.info/}.
+As examples, we cite \citep{goodman-etal-2016-noise} to show you how papers with a DOI will appear in the bibliography.
+We cite \citep{harper-2014-learning} to show how papers without a DOI but with an ACL Anthology Identifier will appear in the bibliography.
+
+\paragraph{\LaTeX-specific details:}
+Please ensure that you use Bib\TeX\ records that contain DOI or URLs for any of the ACL materials that you reference.
+If the Bib\TeX{} file contains DOI fields, the paper title in the references section will appear as a hyperlink to the DOI, using the hyperref \LaTeX{} package.
+
+
+\section{Accessibility}
+\label{ssec:accessibility}
+
+In an effort to accommodate people who are color-blind (as well as those printing to paper), grayscale readability is strongly encouraged.
+Color is not forbidden, but authors should ensure that tables and figures do not rely solely on color to convey critical distinctions.
+A simple criterion:
+All curves and points in your figures should be clearly distinguishable without color.
+
+
+\section{\LaTeX{} Compilation Issues}
+You may encounter the following error during compilation: 
+\begin{quote}
+{\small\verb|\pdfendlink|} ended up in different nesting level than {\small\verb|\pdfstartlink|}.
+\end{quote}
+This happens when \texttt{\small pdflatex} is used and a citation splits across a page boundary.
+To fix this, the style file contains a patch consisting of two lines:
+(1) {\small\verb|\RequirePackage{etoolbox}|} (line 477 in \texttt{\small rocling2025.sty}), and
+(2) A long line below (line 478 in \texttt{\small rocling2025.sty}).
+
+If you still encounter compilation issues even with the patch enabled, disable the patch by commenting the two lines, and then disable the \texttt{\small hyperref} package by loading the style file with the \texttt{\small nohyperref} option:
+
+\noindent
+{\small\verb|\usepackage[nohyperref]{rocling2025}|}
+
+\noindent
+Then recompile, find the problematic citation, and rewrite the sentence containing the citation. (See, {\em e.g.}, \url{http://tug.org/errors.html})
+
+\section*{Acknowledgments}
+
+The acknowledgments should go immediately before the references. Do not number the acknowledgments section.
+Do not include this section when submitting your paper for review.
+
+\bibliography{rocling2025}
+\bibliographystyle{acl_natbib}
+
+\end{document}

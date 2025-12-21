@@ -1,0 +1,37 @@
+工作地點
+台灣
+專業領域
+企業規劃
+職別
+工程師/管理師
+職務類型
+正職
+職務張貼日
+2025/10/31
+台積公司成立於1987年，率先開創了專業積體電路製造服務之商業模式，自此成為世界領先的專業積體電路製造服務公司。台積公司以領先業界的製程技術及設計解決方案組合支援其客戶及夥伴生態系統的蓬勃發展，以此釋放全球半導體產業的創新。身為全球的企業公民，台積公司的營運範圍遍及亞洲、歐洲及北美，致力成為企業社會責任的行動者。2024年，台積公司提供最廣泛的先進製程、特殊製程及先進封裝等不同製程技術，為500多個客戶生產超過11,000種不同產品。台積公司企業總部位於台灣新竹。進一步資訊請至台積公司網站https://www.tsmc.com.tw查詢。
+職務說明
+Overview of Role
+
+As a pivotal AI Engineer within our Corporate Planning Organization, you will leverage cutting-edge AI and engineering principles to transform complex business planning and operational challenges into robust, intelligent solutions. This unique opportunity places you at the intersection of business strategy, AI research, and robust system development, enabling you to deliver high-impact applications.
+We are actively building agentic AI solutions, integrating advanced LLM models with sophisticated software engineering and system design techniques. Your contributions will span the entire product lifecycle, from initial concept to production deployment, within a dynamic and collaborative environment.
+
+Responsibilities
+
+1. Partner closely with business intelligence users and project managers to deeply understand the business challenges, translating them into actionable AI development roadmaps.
+2. Research, evaluate, and integrate state-of-the-art AI and LLM algorithms and technical solutions to optimize performance and innovation.
+3. Build both prototypes and high-quality products iteratively to deliver user-centric services.
+4. Actively contribute to every stage of the product development lifecycle, from ideation and architectural design to deployment, monitoring, and continuous improvement.
+職務要求
+Minimum Qualifications
+
+1. Master's degree or Ph.D. in Computer Science, Artificial Intelligence or closely related fields.
+2. 5+ years of industry experience developing software service, AI solutions.
+3. Proficiency in Python, DevOps, and software development best practices.
+4. Experience in LLM application development, especially RAG, agentic AI systems.
+5. Good communication and problem-solving skills.
+
+Preferred Qualifications
+
+1. Experience in deploying ML/AI models, MLOps.
+2. Experience in microservice, Web application development.
+3. Experience working with NoSQL databases, including Elasticsearch, MongoDB, graph and vector databases.

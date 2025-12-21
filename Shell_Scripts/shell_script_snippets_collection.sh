@@ -1,0 +1,1 @@
+source docaienv/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port 8082 --log-level info 2>&1 | head -50

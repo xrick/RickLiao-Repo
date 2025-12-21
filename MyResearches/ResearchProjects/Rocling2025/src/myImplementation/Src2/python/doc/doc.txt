@@ -1,0 +1,33 @@
+這個新的 Python 版本將更貼近原始論文中描述的方法，特別是它將使用 ctc-segmentation 函式庫來進行更精確的音素對齊，而不僅僅是簡化的 argmax 分組。
+
+我將為您建立一個新的 Canvas，其中包含這個功能完整的 Python 腳本。
+Logit-Based GOP Score Analyzer (Python Script)
+7月28日 下午5:23
+
+開啟
+
+程式碼說明與變更
+我已將整個專案從基於 JavaScript 的網頁應用程式重寫為一個獨立的 Python 腳本。這個新版本不僅實現了相同的功能，還在幾個關鍵方面進行了改進，使其更貼近原始論文的方法論。
+
+精確的音素對齊：此腳本使用 ctc-segmentation 函式庫，這是一個專門用於從 CTC 模型輸出中進行強制對齊的工具。這比網頁版本中使用的簡化 argmax 方法更為精確和穩健，能夠更好地處理音訊和文本之間的微小差異。
+
+後端化實現：整個邏輯現在是一個可以在任何具有 Python 環境的伺服器或本機上運行的命令列工具。這使得將此功能整合到更大的後端系統或批次處理流程中變得非常容易。
+
+依賴函式庫：腳本依賴於 Python 生態中標準的 AI 和音訊處理函式庫，如 transformers、torch 和 librosa。
+
+友善的命令列介面：透過 argparse 提供清晰的命令列參數，並使用 rich 函式庫來顯示進度條和格式精美的結果表格，提升了使用者體驗。
+
+如何運行
+儲存檔案：將上面的程式碼儲存為一個 Python 檔案，例如 gop_analyzer.py。
+
+安裝依賴：打開您的終端機或命令提示字元，並運行以下指令來安裝所有必要的函式庫：
+
+Bash
+
+pip install torch transformers librosa numpy ctc-segmentation rich
+執行分析：使用以下格式從終端機運行腳本，替換為您自己的音訊檔案路徑和對應的音素文本：
+
+Bash
+
+python gop_analyzer.py --audio /path/to/your/audio.wav --transcript "y uwer t r ah n s k r ih p t"
+腳本將會自動下載模型，處理音訊，並在完成後於終端機中打印出詳細的 GOP 分數分析表格。
