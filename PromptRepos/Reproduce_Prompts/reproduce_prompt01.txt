@@ -1,0 +1,92 @@
+Role: You are an expert AI Speech Researcher and Machine Learning Engineer specializing in End-to-End (E2E) Automatic Speech Recognition (ASR) and Computer-Assisted Language Learning (CALL) systems. You are proficient in Python, PyTorch, Torchaudio, and HuggingFace Transformers.
+
+Objective: Your task is to generate a complete, modular Python code framework to reproduce the experiments and model architectures described in the research paper titled "Articulatory-Enhanced Mispronunciation Detection and Diagnosis Models: A Multi-dimensional Error Analysis."
+
+Paper Summary & Requirements: The study integrates Articulatory Features (AFs) into E2E models (Conformer and Wav2Vec 2.0) to improve Mispronunciation Detection and Diagnosis (MDD). It compares Phoneme-based (PHN) and Articulatory-based (ART) output representations.
+
+Please implement the following components step-by-step. Use placeholders for data paths but ensure the data loading logic is correct.
+
+1. Data Preparation & Feature Extraction
+Datasets:
+
+Librispeech (clean-100): Used to train the AF Classifiers.
+
+L2-ARCTIC: Used for MDD training/testing.
+
+Split: L2-ARCTIC must be split by speaker: 12 training, 6 validation, 6 testing (Specific test speakers: PNV, THV, TLV, RRBI, SVBI, SKA).
+
+Articulatory Features (AFs):
+
+Define the mapping for 6 categories:
+
+Vowels: Backness, Height, Roundness.
+
+Consonants: Manner, Place, Voicing.
+
+Implement a function to extract 39-dim MFCCs (input for the AF classifier).
+
+Implement a function to extract 83-dim FBank Pitch features (input for the Conformer baseline).
+
+2. The Articulatory Feature (AF) Classifier
+Architecture: Implement a DNN-HMM style classifier.
+
+Input: 39-dim MFCCs.
+
+Structure: 6 hidden layers, 2048 sigmoid units each.
+
+Output: 6 separate Softmax layers (one for each AF category) producing frame-level posteriors.
+
+Fusion: Create a function to concatenate these 6 posterior vectors into a single "Composite AF Vector" for a given frame.
+
+3. MDD Model Architectures
+You need to implement two distinct modeling approaches with specific configurations:
+
+A. Custom E2E Model (Conformer-based)
+
+Architecture: Conformer Encoder -> Transformer Decoder -> CTC Module.
+
+Configurations (Inputs):
+
+RS: Raw Speech input.
+
+FP: 83-dim FBank Pitch features.
+
+M1 (Proposed): Frame-by-frame fusion (concatenation) of FP + AFs (Composite AF Vector).
+
+B. Fine-tuned XLSR (Wav2Vec 2.0)
+
+Base Model: Use facebook/wav2vec2-large-xlsr-53 from HuggingFace.
+
+Configurations:
+
+FT (Baseline): Standard fine-tuning using speech embeddings.
+
+M2 (Proposed): Extract embeddings from the XLSR encoder, concatenate them with the AFs (Composite AF Vector), and feed the result into a Transformer Decoder + CTC for joint inference.
+
+4. Output Representations (Heads)
+PHN Framework: The model output predicts standard Phonemes.
+
+ART Framework: The model output predicts Articulatory labels (sub-segmental modeling).
+
+Note: Ensure the code allows switching between these two target types during training.
+
+5. Training & Evaluation Pipeline
+Metrics: Implement functions to calculate the following specific metrics based on the confusion matrix (Correct Acceptance, False Rejection, Correct Rejection, False Acceptance, Correct Diagnosis, Diagnosis Error):
+
+Detection Accuracy (DA)
+
+False Acceptance Rate (FAR)
+
+False Rejection Rate (FRR)
+
+Diagnosis Error Rate (DER)
+
+Matthews Correlation Coefficient (MCC)
+
+Evaluation Logic: The evaluation must support checking:
+
+Speaker-wise performance.
+
+Performance based on utterance length (Short <21, Medium 21-40, Long >40 labels).
+
+Deliverables: Provide the Python code in a single response (or split into logical blocks if too long). Include comments explaining which part of the paper (e.g., "Section 2.2") is being implemented. Use PyTorch Dataset and LightningModule (or standard PyTorch training loops) for structure.
