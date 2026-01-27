@@ -1,0 +1,11 @@
+我的核心邏輯是採用**「結構化資訊綜合（Structured Information Synthesis）」**的方法，具體步驟如下：
+1. 概念與定義的精確對應 (Mapping Concepts to Definitions) 當您詢問「Introduction」中的概念（如「不同的建模範式」）時，我不會只停留在該段落。我會追蹤該術語在論文後續章節中的具體實作細節。
+• 例子： 當 Introduction 提到「customized Conformer-based E2E model」 時，我會連結到實驗設置章節（Section 2.2），找到該模型的具體定義：「由 Conformer 編碼器、Transformer 解碼器和 CTC 模組組成」。這確保了解釋不僅是翻譯，而是具備技術深度的。
+2. 跨章節的證據整合 (Cross-Sectional Evidence Integration) 為了讓回覆詳細，我將「研究目標」與「實驗結果」結合起來分析。
+• 例子： 在解釋為什麼要比較這兩種範式時，我結合了 Introduction 中的動機（探索廣泛的設計空間），以及 Results 中這兩種模型在不同指標（DA, DER）上的實際表現差異。這樣能說明該設計不只是理論上的，還有數據支持。
+3. 嚴格的引用與事實查核 (Strict Citation and Fact-Checking) 為了確保「正確」，我生成的每一句描述都必須能對應到來源中的具體語句。
+• 例子： 區分「PHN（音素）」與「ART（發音動作）」框架時，我依據來源中對這兩者的明確定義 以及它們在診斷錯誤率（DER）上的表現差異 進行說明，避免臆測。
+4. 釐清論文中的方法論 (Clarifying Paper Methodology) 值得注意的是，雖然您詢問的是我的 Prompt 模式，但論文本身採用的核心技術並非 Prompting，而是：
+• 端到端深度學習 (End-to-End Deep Learning)： 直接學習聲學輸入到發音標籤的映射。
+• 微調 (Fine-tuning)： 針對 Wav2Vec 2.0 模型，論文使用的是「微調（fine-tuning）」策略，這是在預訓練模型基礎上進行參數更新，與現代 NLP 中的 Prompt Engineering 不同。
+總結來說，能夠產生詳細回覆的關鍵，在於系統性地將論文中的**「動機（Introduction）」、「方法（Methods）」與「證據（Results）」**進行邏輯串聯，而非單純摘錄片段。
